@@ -72,15 +72,17 @@ export default function User({ user, id, name, googleName, cityLabel, phone, lin
 
 
     useEffect(() => {
+        user.lastContactDate=lastContactDayEdited
         if (renderDate === true) {
         updateLastContactDate()
-        console.log("a mimir")
+        
     }
         
     }, [lastContactDayEdited])
 
     
     useEffect(() => {
+        user.nextContactDate=nextContactDayEdited
         if (renderDate === true) {
         updateNextContactDate()}
         
@@ -88,19 +90,23 @@ export default function User({ user, id, name, googleName, cityLabel, phone, lin
     
 
     useEffect(() => {
+        user.status=statusEdited
+        
         
 
         if (renderDate === true) {
             newDateContactSetter()
+            
         }
         updateStatus()
+    
  
     }, [statusEdited]);
 
 
         const newDateContactSetter = () => {
             let today = new Date()
-            let todayFormated = format(today, "dd/MM/yyyy")
+            let todayFormated = format(today, "MM/dd/yyyy")
             if (statusEdited === "Sin contactar"){
                 setLastContactDayEdited("-")
                 setNextContactDayEdited("-")
@@ -109,29 +115,29 @@ export default function User({ user, id, name, googleName, cityLabel, phone, lin
                 setLastContactDayEdited(todayFormated)
                 
                 const birthday = addDays(today, 20)
-                let nextFormateded = format(birthday, "dd/MM/yyyy")
+                let nextFormateded = format(birthday, "MM/dd/yyyy")
                 setNextContactDayEdited(nextFormateded)
                 
             } else if (statusEdited === "Re-contactado") {
                 setLastContactDayEdited(todayFormated)
                 
                 const birthdayy = addDays(today, 30);
-                let nextFormated = format(birthdayy, "dd/MM/yyyy")
-                setNextContactDayEdited(nextFormated)
+                let nextFormatedi = format(birthdayy, "MM/dd/yyyy")
+                setNextContactDayEdited(nextFormatedi)
             
             }else if (statusEdited === "Propuesta") {
                 setLastContactDayEdited(todayFormated)
                 
                 const birthdayy = addDays(today, 2);
-                let nextFormated = format(birthdayy, "dd/MM/yyyy")
-                setNextContactDayEdited(nextFormated)
+                let nextFormatedo = format(birthdayy, "MM/dd/yyyy")
+                setNextContactDayEdited(nextFormatedo)
             
             }else if (statusEdited === "Visita") {
                 setLastContactDayEdited(todayFormated)
                 
                 const birthdayy = addDays(today, 2);
-                let nextFormated = format(birthdayy, "dd/MM/yyyy")
-                setNextContactDayEdited(nextFormated)
+                let nextFormatedp = format(birthdayy, "MM/dd/yyyy")
+                setNextContactDayEdited(nextFormatedp)
     
             }else if (statusEdited === "Captado") {
                 setLastContactDayEdited(todayFormated)

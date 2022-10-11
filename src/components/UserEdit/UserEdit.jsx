@@ -58,25 +58,10 @@ export default function UserEdit({ usersList }) {
     useEffect(() => {
        handleNewLastContactDate() 
     }, [calendarDate])
-    useEffect(() => {
-        
-        console.log("Ultima")
-        console.log(newLastContactDate)
 
-    }, [newLastContactDate])
     
 
 
-
-    useEffect(() => {
-        
-        console.log("se cambia fecha")
-        console.log(newNextContactDate)
-        console.log("Ultimaulima")
-        console.log(newLastContactDate)
-       
-
-    }, [newNextContactDate])
 
     useEffect(() => {
         nextContactDateSetter()
@@ -191,18 +176,20 @@ export default function UserEdit({ usersList }) {
       
     const handleNewLastContactDate = () => {
         
-        let calendarDateFormated = format(calendarDate, "dd/MM/yyyy")
+        let calendarDateFormated = format(calendarDate, "MM/dd/yyyy")
        
             setNewLastContactDate(calendarDateFormated)
             if (newStatus === "Contactado") {
                 const birthday = addDays(calendarDate, 20);
-                let birthFormat = format(birthday, "dd/MM/yyyy")
+                let birthFormat = format(birthday, "MM/dd/yyyy")
+                console.log(birthFormat)
                 setNewNextContactDate(birthFormat)
                
 
             } else if (newStatus === "Re-contactado") {
                 const birthday = addDays(calendarDate, 3);
-                let birthFormato = format(birthday, "dd/MM/yyyy")
+                let birthFormato = format(birthday, "MM/dd/yyyy")
+                console.log(birthFormato)
                 setNewNextContactDate(birthFormato)
               
 
@@ -218,7 +205,7 @@ export default function UserEdit({ usersList }) {
     };
 
     const nextContactDateSetter = () => {
-        let calendarDateFormateded = format(calendarDate, "dd/MM/yyyy")
+        let calendarDateFormateded = format(calendarDate, "MM/dd/yyyy")
        
             setNewLastContactDate(calendarDateFormateded)
 
@@ -229,16 +216,17 @@ export default function UserEdit({ usersList }) {
        } else if (newStatus === "Contactado") {
        
          const nextDay = addDays(calendarDate, 20);
-            let nextFormat = format(nextDay, "dd/MM/yyyy")
+            let nextFormat = format(nextDay, "MM/dd/yyyy")
+            console.log(nextFormat)
             setNewLastContactDate(calendarDateFormateded)
             setNewNextContactDate(nextFormat)
 
         } else if (newStatus === "Re-contactado") {
             const nextDay = addDays(calendarDate, 3);
-            let nextFormated = format(nextDay, "dd/MM/yyyy")
+            let nextFormated = format(nextDay, "MM/dd/yyyy")
             setNewLastContactDate(calendarDateFormateded)
             setNewNextContactDate(nextFormated)
-            console.log("esto es recontactado")
+            console.log(nextFormated)
 
         }
 

@@ -7,7 +7,7 @@ import HomePage from './components/HomePage/HomePage';
 import UserEditContainer from './components/UserEditContainer/UserEditContainer';
 import UserListContainer from './components/UserListContainer/UserListContainer';
 import Test from './components/test/Test';
-
+import CalendarContainer from './components/CalendarContainer/CalendarContainer';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 
@@ -26,6 +26,7 @@ function App() {
             <Route  path='/userList' element={<UserListContainer />}/>
             <Route  path='/status/:statusId' element={<UserListContainer />}/>
             <Route  path='/userEdit' element={<UserEditContainer />}/>
+            <Route  path='/calendar' element={<CalendarContainer />}/>
             <Route  path='/test' element={<Test />}/>
            
          </Routes>
