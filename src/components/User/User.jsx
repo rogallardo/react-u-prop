@@ -74,29 +74,22 @@ export default function User({ user, id, name, googleName, cityLabel, phone, lin
     useEffect(() => {
         user.lastContactDate=lastContactDayEdited
         if (renderDate === true) {
-        updateLastContactDate()
-        
-    }
-        
+        updateLastContactDate()      
+    }    
     }, [lastContactDayEdited])
 
     
     useEffect(() => {
         user.nextContactDate=nextContactDayEdited
         if (renderDate === true) {
-        updateNextContactDate()}
-        
+        updateNextContactDate()}     
     }, [nextContactDayEdited])
     
 
     useEffect(() => {
         user.status=statusEdited
-        
-        
-
         if (renderDate === true) {
-            newDateContactSetter()
-            
+            newDateContactSetter()          
         }
         updateStatus()
     

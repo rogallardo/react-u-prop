@@ -191,6 +191,11 @@ export default function UserEdit({ usersList }) {
                 let birthFormato = format(birthday, "MM/dd/yyyy")
                 console.log(birthFormato)
                 setNewNextContactDate(birthFormato)
+            } else if (newStatus === "Propuesta") {
+                const birthday = addDays(calendarDate, 3);
+                let birthFormatho = format(birthday, "MM/dd/yyyy")
+                console.log(birthFormatho)
+                setNewNextContactDate(birthFormatho)
               
 
 
@@ -228,8 +233,13 @@ export default function UserEdit({ usersList }) {
             setNewNextContactDate(nextFormated)
             console.log(nextFormated)
 
+        } else if (newStatus === "Propuesta") {
+            const nextDay = addDays(calendarDate, 3);
+            let nextFormatedo = format(nextDay, "MM/dd/yyyy")
+            setNewLastContactDate(calendarDateFormateded)
+            setNewNextContactDate(nextFormatedo)
+            console.log(nextFormatedo)
         }
-
 
     }
 

@@ -38,204 +38,6 @@ import Divider from '@mui/material/Divider';
 import MenuIcon from '@mui/icons-material/Menu';
 import DirectionsIcon from '@mui/icons-material/Directions';
 
-
-export default function Calendar({ usersList }) {
-    let today = new Date()
-
-    let todayFormat = format(today, "yyyy/MM/dd")
-    const [copyUsersList, setCopyUsersList] = useState(usersList)
-    const [newValue, setNewValue] = useState('')
-    const [cityFilter, setCityFilter] = useState('')
-    const [statusFilter, setStatusFilter] = useState('')
-    const [usersMatch, setUsersMatch] = useState([])
-    const [hoverID, setHoverID] = useState()
-
-
-    useEffect(() => {
-        coincidenciasBusqueda()
-    }, [newValue])
-
-    useEffect(() => {
-        coincidenciasBusqueda()
-    }, [cityFilter])
-    useEffect(() => {
-        coincidenciasBusqueda()
-
-    }, [statusFilter])
-
-
-
-    const filtering = () => {
-        if (cityFilter !== "" && statusFilter === "" && newValue !== "") {
-            let copiaUsersListt = copyUsersList
-            let papa = copiaUsersListt.filter((userInList) =>
-                userInList.name.toLowerCase().includes(newValue.toLowerCase()))
-            let pepe = copiaUsersListt.filter((userInList) =>
-                userInList.phone.toLowerCase().includes(newValue.toLowerCase()))
-            let popo = copiaUsersListt.filter((userInList) =>
-                userInList.googleName.toLowerCase().includes(newValue.toLowerCase()))
-            if (papa.length > 0) {
-                let papaCiudad = papa.filter((userInList) =>
-                    userInList.city == cityFilter)
-                setUsersMatch(papaCiudad)
-            } else if (papa.length === 0 && popo.length === 0) {
-                let pepeCiudad = pepe.filter((userInList) =>
-                    userInList.city == cityFilter)
-                setUsersMatch(pepeCiudad)
-            } else if (pepe.length === 0 && papa.length === 0) {
-                let popoCiudad = popo.filter((userInList) =>
-                    userInList.city == cityFilter)
-                setUsersMatch(popoCiudad)
-            }
-        } else if (cityFilter === "" && statusFilter !== "" && newValue !== "") {
-            let copiaUsersListt = copyUsersList
-            let papa = copiaUsersListt.filter((userInList) =>
-                userInList.name.toLowerCase().includes(newValue.toLowerCase()))
-            let pepe = copiaUsersListt.filter((userInList) =>
-                userInList.phone.toLowerCase().includes(newValue.toLowerCase()))
-            let popo = copiaUsersListt.filter((userInList) =>
-                userInList.googleName.toLowerCase().includes(newValue.toLowerCase()))
-            if (papa.length > 0) {
-                let papaStatus = papa.filter((userInList) =>
-                    userInList.status == statusFilter)
-                setUsersMatch(papaStatus)
-            } else if (papa.length === 0 && popo.length === 0) {
-                let pepeStatus = pepe.filter((userInList) =>
-                    userInList.status == statusFilter)
-                setUsersMatch(pepeStatus)
-            } else if (pepe.length === 0 && papa.length === 0) {
-                let popoStatus = popo.filter((userInList) =>
-                    userInList.status == statusFilter)
-                setUsersMatch(popoStatus)
-            }
-        } else if (cityFilter !== "" && statusFilter !== "" && newValue !== "") {
-            let copiaUsersListt = copyUsersList
-
-            let papa = copiaUsersListt.filter((userInList) =>
-                userInList.name.toLowerCase().includes(newValue.toLowerCase()))
-
-            let pepe = copiaUsersListt.filter((userInList) =>
-                userInList.phone.toLowerCase().includes(newValue.toLowerCase()))
-
-            let popo = copiaUsersListt.filter((userInList) =>
-                userInList.googleName.toLowerCase().includes(newValue.toLowerCase()))
-
-            if (papa.length > 0) {
-                let papaStatus = papa.filter((userInList) =>
-                    userInList.status == statusFilter)
-                let papaStatusCity = papaStatus.filter((userInList) =>
-                    userInList.city == cityFilter)
-                setUsersMatch(papaStatusCity)
-
-            } else if (papa.length === 0 && popo.length === 0) {
-                let pepeStatus = pepe.filter((userInList) =>
-                    userInList.status == statusFilter)
-                let pepeStatusCity = pepeStatus.filter((userInList) =>
-                    userInList.city == cityFilter)
-                setUsersMatch(pepeStatusCity)
-
-            } else if (pepe.length === 0 && papa.length === 0) {
-                let popoStatus = popo.filter((userInList) =>
-                    userInList.status == statusFilter)
-                let popoStatusCity = popoStatus.filter((userInList) =>
-                    userInList.city == cityFilter)
-                setUsersMatch(popoStatusCity)
-
-            }
-
-        } else if (cityFilter !== "" && statusFilter === "" && newValue === "") {
-            let copiaUsersListt = copyUsersList
-            let onlyCityFilter = copiaUsersListt.filter((userInList) =>
-                userInList.city == cityFilter
-            )
-            setUsersMatch(onlyCityFilter)
-        } else if (cityFilter === "" && statusFilter !== "" && newValue === "") {
-            let copiaUsersListt = copyUsersList
-            let onlyStatusFilter = copiaUsersListt.filter((userInList) =>
-                userInList.status == statusFilter
-            )
-            setUsersMatch(onlyStatusFilter)
-        } else if (cityFilter !== "" && statusFilter !== "" && newValue === "") {
-            let copiaUsersListt = copyUsersList
-            let onlyStatusArray = copiaUsersListt.filter((userInList) =>
-                userInList.status == statusFilter)
-            let onlyStatusAndCityArray = onlyStatusArray.filter((userInList) =>
-                userInList.city == cityFilter)
-            setUsersMatch(onlyStatusAndCityArray)
-        } else if (cityFilter === "" && statusFilter === "" && newValue === "") {
-            setUsersMatch(usersList)
-        }
-    }
-    const coincidenciasBusqueda = () => {
-        if (newValue !== "") {
-
-            if (cityFilter === "" && statusFilter === "") {
-                let copiaUsersListt = copyUsersList
-                let papa = copiaUsersListt.filter((userInList) =>
-                    userInList.name.toLowerCase().includes(newValue.toLowerCase()))
-
-                let pepe = copiaUsersListt.filter((userInList) =>
-                    userInList.phone.toLowerCase().includes(newValue.toLowerCase()))
-
-                let popo = copiaUsersListt.filter((userInList) =>
-                    userInList.googleName.toLowerCase().includes(newValue.toLowerCase()))
-
-
-                if (papa.length > 0) {
-                    setUsersMatch(papa)
-                } else if (papa.length === 0 && popo.length === 0) {
-                    setUsersMatch(pepe)
-                } else if (pepe.length === 0 && papa.length === 0) {
-                    setUsersMatch(popo)
-                }
-            } else if (cityFilter !== "" || statusFilter !== "") {
-                filtering()
-            }
-
-
-
-        } else if (newValue === "" && cityFilter === "" && statusFilter === "") {
-            setUsersMatch(usersList)
-        } else if (newValue === "" && cityFilter !== "" && statusFilter === "") {
-            filtering()
-        } else if (newValue === "" && cityFilter === "" && statusFilter !== "") {
-            filtering()
-        } else if (newValue === "" && cityFilter !== "" && statusFilter !== "") {
-            filtering()
-        }
-
-    }
-
-    const handleNewValue = (e) => {
-        setNewValue(e.target.value)
-    }
-    const handleCityFilter = (e) => {
-        setCityFilter(e.target.value)
-    }
-    const handleStatusFilter = (e) => {
-        setStatusFilter(e.target.value)
-    }
-
-    const handleAnimationDelete = (id) => {
-        setHoverID(id);
-    }
-
-    const removeItem = (id) => {
-
-        let resp = copyUsersList.filter((el) => el.id !== id)
-        let resp2 = usersMatch.filter((el) => el.id !== id)
-        setCopyUsersList(resp)
-        setUsersMatch(resp2)
-    }
-
-    const deleteUser = async (id) => {
-        const db = getFirestore();
-        await deleteDoc(doc(db, "users", id));
-        handleAnimationDelete(id)
-        setTimeout(() => { removeItem(id) }, 700);
-
-    }
-
     /* const coincidenciasCiudad = () => {
           if (newCity !== "") {
               let copiaUsersListt = [...copyUsersList]
@@ -267,15 +69,140 @@ export default function Calendar({ usersList }) {
           name = nameEdited
       }*/
 
-const todayPendings = ()=>{
-    let today = new Date()
-    let todayFormat = format(today, "MM/dd/yyyy")
-    let todayForr = new Date(todayFormat)
-   
-let filterUntilToday = usersList.filter(user=> new Date(user.nextContactDate ) <= todayForr)
+
+
+export default function Calendar({ usersList }) {
+
+    const [copyUsersList, setCopyUsersList] = useState(usersList)
+    const [newValue, setNewValue] = useState('')
+    const [todayFilter, setTodayFilter] = useState(true)
+    const [tomorrowFilter, setTomorrowFilter] = useState(false)
+    const [usersMatch, setUsersMatch] = useState([])
+    const [hoverID, setHoverID] = useState()
+
     
-    setUsersMatch(filterUntilToday)
+   
+
+    useEffect(() => {
+      
+        coincidenciasBusqueda()
+    }, [newValue]) 
+    
+    const coincidenciasBusqueda = () => {
+        if (newValue !== "") {
+
+            if ( todayFilter === true && tomorrowFilter === false) {
+                let copiaUsersListt = copyUsersList
+
+                let today = new Date()
+                let todayFormat = format(today, "MM/dd/yyyy")
+                let todayForr = new Date(todayFormat)
+                let filterUntilToday = copiaUsersListt.filter(user => new Date(user.nextContactDate) <= todayForr || user.status == "Sin contactar")
+                
+                let papa = filterUntilToday.filter((userInList) =>
+                    userInList.name.toLowerCase().includes(newValue.toLowerCase()))
+
+                let pepe = filterUntilToday.filter((userInList) =>
+                    userInList.phone.toLowerCase().includes(newValue.toLowerCase()))
+
+                let popo = filterUntilToday.filter((userInList) =>
+                    userInList.googleName.toLowerCase().includes(newValue.toLowerCase()))
+
+
+                if (papa.length > 0) {
+                    setUsersMatch(papa)
+                } else if (papa.length === 0 && popo.length === 0) {
+                    setUsersMatch(pepe)
+                } else if (pepe.length === 0 && papa.length === 0) {
+                    setUsersMatch(popo)
+                }
+            } else if (todayFilter === false && tomorrowFilter === true) {
+                let copiaUsersListt = copyUsersList
+
+                let today = new Date()
+                let tomorrow = addDays(today, 1);
+                let tomorrowFormated = format(tomorrow, "MM/dd/yyyy")
+                let tomorrowForr = new Date(tomorrowFormated)
+                let filterUntilTomorrow = copiaUsersListt.filter(user => new Date(user.nextContactDate) <= tomorrowForr || user.status == "Sin contactar")
+            
+                setUsersMatch(filterUntilTomorrow)
+                
+
+                let papa = filterUntilTomorrow.filter((userInList) =>
+                    userInList.name.toLowerCase().includes(newValue.toLowerCase()))
+
+                let pepe = filterUntilTomorrow.filter((userInList) =>
+                    userInList.phone.toLowerCase().includes(newValue.toLowerCase()))
+
+                let popo = filterUntilTomorrow.filter((userInList) =>
+                    userInList.googleName.toLowerCase().includes(newValue.toLowerCase()))
+
+
+                if (papa.length > 0) {
+                    setUsersMatch(papa)
+                } else if (papa.length === 0 && popo.length === 0) {
+                    setUsersMatch(pepe)
+                } else if (pepe.length === 0 && papa.length === 0) {
+                    setUsersMatch(popo)
+                }       
+             }
+    } else if (newValue === "" && todayFilter === true){
+        todayPendings()
+    } else if (newValue === "" && tomorrowFilter === true){
+        tomorrowPendings()
 }
+    }
+    const todayPendings = () => {
+        let copyUsersListt = copyUsersList
+        let today = new Date()
+        let todayFormat = format(today, "MM/dd/yyyy")
+        let todayForr = new Date(todayFormat)
+        let filterUntilToday = copyUsersListt.filter(user => new Date(user.nextContactDate) <= todayForr || user.status == "Sin contactar")
+        setTomorrowFilter(false)
+        setTodayFilter(true)
+        setUsersMatch(filterUntilToday)
+        setNewValue('')
+    }
+
+
+    const tomorrowPendings = () => {
+        let copyUsersListtt = copyUsersList
+        let today = new Date()
+        let tomorrow = addDays(today, 1);
+        let tomorrowFormated = format(tomorrow, "MM/dd/yyyy")
+        let tomorrowForr = new Date(tomorrowFormated)
+        let filterUntilTomorrow = copyUsersListtt.filter(user => new Date(user.nextContactDate) <= tomorrowForr || user.status == "Sin contactar")
+        setTomorrowFilter(true)
+        setTodayFilter(false)
+        setUsersMatch(filterUntilTomorrow)
+        setNewValue('')
+   
+    }
+
+    const handleNewValue = (e) => {
+        setNewValue(e.target.value)
+    }
+
+    const handleAnimationDelete = (id) => {
+        setHoverID(id);
+    }
+
+    const removeItem = (id) => {
+
+        let resp = copyUsersList.filter((el) => el.id !== id)
+        let resp2 = usersMatch.filter((el) => el.id !== id)
+        setCopyUsersList(resp)
+        setUsersMatch(resp2)
+    }
+
+    const deleteUser = async (id) => {
+        const db = getFirestore();
+        await deleteDoc(doc(db, "users", id));
+        handleAnimationDelete(id)
+        setTimeout(() => { removeItem(id) }, 700);
+
+    }
+
     return (
         <>
             <div className='big-container-userEdit'>
@@ -286,12 +213,13 @@ let filterUntilToday = usersList.filter(user=> new Date(user.nextContactDate ) <
 
                             <Paper
                                 component="form"
-                                sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '100%'}}
+                                sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '100%' }}
                             >
                                 <InputBase
                                     sx={{ ml: 1, flex: 1 }}
                                     placeholder="Buscar..."
                                     inputProps={{ 'aria-label': 'search google maps' }}
+                                    value={newValue}
                                     onChange={handleNewValue}
                                 />
                                 <IconButton disabled type="button" sx={{ p: '10px' }} aria-label="search">
@@ -300,46 +228,27 @@ let filterUntilToday = usersList.filter(user=> new Date(user.nextContactDate ) <
 
                             </Paper>
                             <div className='btn-editar-container'>
-                                            <IconButton
-                                                edge="end"
-                                                aria-label="delete"
-                                                title="Edit"
-                                                onClick={() => { todayPendings() }}
-                                            >
-                                                <CreateIcon />
-                                            </IconButton>
-                                        </div>
-                        </div>
-                        <div className='filtros-container'>
-                            <div className='content-selected'>
-
-                                <select value={cityFilter} onChange={handleCityFilter}>
-
-                                    <option value="" >Todas las ciudades</option>
-                                    <option value="devoto" >Villa Devoto</option>
-                                    <option value="urquiza">Villa Urquiza</option>
-                                    <option value="palermo">Palermo</option>
-
-                                </select>
-
+                                <IconButton
+                                    edge="end"
+                                    aria-label="delete"
+                                    title="Edit"
+                                    onClick={() => { todayPendings() }}
+                                >
+                                    <CreateIcon />
+                                </IconButton>
                             </div>
-
-                            <div className='content-selected'>
-
-                                <select value={statusFilter} onChange={handleStatusFilter}>
-                                    <option value="">Todos los estados</option>
-                                    <option value="Sin contactar">Sin contactar</option>
-                                    <option value="Contactado">Contactado</option>
-                                    <option value="Re-contactado">Re-contactado</option>
-                                    <option value="Propuesta">Propuesta</option>
-                                    <option value="Visita">Visita</option>
-                                    <option value="Captado">Captado</option>
-                                    <option value="Rechazado">Rechazado</option>
-
-                                </select>
-
+                            <div className='btn-editar-container'>
+                                <IconButton
+                                    edge="end"
+                                    aria-label="delete"
+                                    title="Delete"
+                                    onClick={() => { tomorrowPendings() }}
+                                >
+                                    <CreateIcon />
+                                </IconButton>
                             </div>
                         </div>
+
                     </div>
                 </div>
 
