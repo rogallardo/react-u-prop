@@ -83,8 +83,7 @@ export default function Calendar({ usersList }) {
     
    
 
-    useEffect(() => {
-      
+    useEffect(() => {     
         coincidenciasBusqueda()
     }, [newValue]) 
     
