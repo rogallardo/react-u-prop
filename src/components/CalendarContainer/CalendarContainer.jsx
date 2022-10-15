@@ -4,6 +4,7 @@ import './calendarContainer.css'
 import { useParams, Link } from "react-router-dom"
 import {collection, where, getDocs, getFirestore, query} from 'firebase/firestore'
 import CircularProgress from '@mui/material/CircularProgress';
+import NavBar from '../NavBar/NavBar'
 
 
 
@@ -58,7 +59,10 @@ export default function CalendarContainer() {
  
   }, [statusId]);
   return  (
-    <div className='userListContainer'>
+    <>
+       <NavBar />
+ 
+    
     {
         loading?
         <div className='userListContainer'>
@@ -67,6 +71,7 @@ export default function CalendarContainer() {
         : 
         <Calendar usersList={usersList} /> 
     }
-</div>
+
+</>
   )
 }

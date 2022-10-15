@@ -5,6 +5,7 @@ import UserEdit from '../UserEdit/UserEdit'
 import { useEffect, useState } from 'react'
 import CircularProgress from '@mui/material/CircularProgress';
 import './userEditContainer.css'
+import NavBar from '../NavBar/NavBar';
 
 
 export default function UserEditContainer() {
@@ -80,6 +81,8 @@ export default function UserEditContainer() {
     
   }, []);
   return (
+    <>
+    <NavBar />
     <div>
     {
         loading?
@@ -90,5 +93,6 @@ export default function UserEditContainer() {
         <UserEdit usersList={usersList}/> 
     }
 </div>
+</>
   )
 }

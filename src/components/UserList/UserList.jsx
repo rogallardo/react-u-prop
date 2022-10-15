@@ -37,6 +37,7 @@ import InputBase from '@mui/material/InputBase';
 import Divider from '@mui/material/Divider';
 import MenuIcon from '@mui/icons-material/Menu';
 import DirectionsIcon from '@mui/icons-material/Directions';
+import NavBar from '../NavBar/NavBar'
 
 
 export default function UserList({ usersList }) {
@@ -270,7 +271,9 @@ export default function UserList({ usersList }) {
 
 
     return (
+        
         <>
+        
             <div className='big-container-userEdit'>
 
                 <div className='inputSearch-container-userEdit'>

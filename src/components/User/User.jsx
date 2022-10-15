@@ -183,9 +183,6 @@ export default function User({ user, id, name, googleName, cityLabel, phone, lin
                             <div className='usertext-container'><Typography><p >{cityLabel}</p></Typography></div>
                             <div className='usertext-container'><Typography><p >{googleName}</p></Typography></div>
                             <div className='usertext-container'><Typography><p >{phone}</p></Typography></div>
-
-                            <div className='usertext-container'><Typography><p >{lastContactDayEdited}</p></Typography></div>
-                            <div className='usertext-container'><Typography><p >{nextContactDayEdited}</p></Typography></div>
                             <div className='usertext-container'><a href={link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', padding: '0px', margin: '0px' }}> <Button sx={{ m: 0, underline: 'hide', padding: "0px" }} variant="text" size='small'>Link</Button></a></div>
                             <div className='usertext-container'>
                                 < StatusSelector handleStatusEdited={handleStatusEdited} statusEdited={statusEdited} status={status} />

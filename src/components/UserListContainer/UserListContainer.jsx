@@ -4,6 +4,7 @@ import './UserListContainer.css'
 import { useParams, Link } from "react-router-dom"
 import {collection, where, getDocs, getFirestore, query} from 'firebase/firestore'
 import CircularProgress from '@mui/material/CircularProgress';
+import NavBar from '../NavBar/NavBar'
 
 
 
@@ -29,7 +30,7 @@ export default function UserListContainer() {
         const arrNormalizado = res.docs.map((user)=>({...user.data(), id: user.id}));
         setUsersList(arrNormalizado);
       })
-      .catch((error)=>{
+      .catch((rej)=>{
         setError(true);
         
     console.log("error de carga")
@@ -58,7 +59,8 @@ export default function UserListContainer() {
  
   }, [statusId]);
   return  (
-    <div className='userListContainer'>
+ <>
+      <NavBar />
     {
         loading?
         <div className='userListContainer'>
@@ -67,6 +69,6 @@ export default function UserListContainer() {
         : 
         <UserList usersList={usersList}/> 
     }
-</div>
+</>
   )
 }
