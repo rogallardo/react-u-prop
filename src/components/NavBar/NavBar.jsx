@@ -25,13 +25,13 @@ export default function NavBar() {
       return docuNormalizada
     }
     function getRolAndSetUser(user){
-        getRol(user.uid).then((role => {
+        getRol(user.uid).then((rol => {
          if(user) {
            setUserLog(true)
           const dataUser = {
             uid: user.uid,
             email: user.email,
-            rol: role.rol 
+            role: rol
           }
           
           setUser(dataUser)
