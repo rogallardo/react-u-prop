@@ -60,10 +60,10 @@ export default function UserListContainer() {
   }, [statusId]);
   return  (
  <>
-      <NavBar />
+    
     {
         loading?
-        <div className='userListContainer'>
+        <div className='loadingPage'>
             <CircularProgress />
         </div>
         : 

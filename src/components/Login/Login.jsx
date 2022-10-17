@@ -35,7 +35,7 @@ export default function Login() {
         setUserPass(e.target.value)
     }
     const rol = "user"
-    //.then(r => navigate('/'))
+
    const regUser = async (e) => {
         e.preventDefault()
        const infoUsuario = await createUserWithEmailAndPassword(auth, userEmail, userPass)   
@@ -61,8 +61,8 @@ export default function Login() {
             })
     }
 
-    const logUser = ()=>{
-        signInWithEmailAndPassword(auth, userEmail, userPass)
+    const logUser = async ()=>{
+    await  signInWithEmailAndPassword(auth, userEmail, userPass)
         .then( (r)=> navigate('/'))
         .catch(err=> {
             if (err.code == 'auth/wrong-password') {

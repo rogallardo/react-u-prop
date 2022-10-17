@@ -60,12 +60,12 @@ export default function CalendarContainer() {
   }, [statusId]);
   return  (
     <>
-       <NavBar />
+      
  
     
     {
         loading?
-        <div className='userListContainer'>
+        <div className='loadingPage'>
             <CircularProgress />
         </div>
         : 

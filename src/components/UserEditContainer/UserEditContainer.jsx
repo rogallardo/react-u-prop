@@ -82,11 +82,11 @@ export default function UserEditContainer() {
   }, []);
   return (
     <>
-    <NavBar />
+  
     <div>
     {
         loading?
-        <div className='userListContainer'>
+        <div className='loadingPage'>
             <CircularProgress />
         </div>
         : 

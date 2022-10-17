@@ -4,6 +4,8 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { initializeApp } from "firebase/app";
+import AuthContext from "./components/AuthContext/AuthContext";
+
 
 
 const firebaseConfig = {
@@ -24,9 +26,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
 
-
+ 
        <App />
-
+    
       
  
  
