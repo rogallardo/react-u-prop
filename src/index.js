@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { initializeApp } from "firebase/app";
-import AuthContext from "./components/AuthContext/AuthContext";
+
 
 
 
@@ -17,7 +17,7 @@ const firebaseConfig = {
   appId: "1:852702847029:web:ed70a99f5fb6a13e4d917c",
   measurementId: "G-QSZSLDKT6K"
 };
-initializeApp(firebaseConfig);
+initializeApp(firebaseConfig); 
 
 
 

@@ -1,11 +1,9 @@
 //@ts-check
 import React from 'react'
 import { useEffect, useState } from 'react'
-import { signOut, getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
-import { collection, getFirestore, addDoc, updateDoc, doc, deleteDoc, setDoc, getDoc } from 'firebase/firestore';
 import './NavBar.css'
 import { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import { Auth } from '../AuthContext/AuthContext';
 
 
@@ -13,16 +11,29 @@ export default function NavBar() {
 
   const { userLog, adminUser, userInfo, cerrarSesion } = useContext(Auth)
   const [hideMenu, setHideMenu] = useState(true)
+  const [showAdminMenu, setShowAdminMenu] = useState(false)
   const initializeNavBar = () => {
     if (userLog === false) {
       setHideMenu(true)
     } else {
-      setHideMenu(false)
+      setTimeout(()=>{
+        setHideMenu(false)
+      }, 1000)
+      
     }
   }
   useEffect(() => {
 initializeNavBar()
   }, [userLog])
+
+  useEffect(() => {
+    if(adminUser===true){
+      setShowAdminMenu(true)
+    }else{
+      setShowAdminMenu(false)
+    }
+  }, [adminUser])
+  
 
 
 
@@ -46,7 +57,7 @@ initializeNavBar()
 
           }
           {
-            adminUser ?
+            showAdminMenu ?
               <div className='logOut-btn-container'>
                 <button onClick={cerrarSesion} className='logOut-btn'>Admin</button>
               </div>

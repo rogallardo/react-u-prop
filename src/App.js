@@ -22,8 +22,8 @@ function App() {
      <AuthContext>
           <NavBar />
         <Routes>
-            <Route  path='/' element={<HomePage />}/>
-            <Route  path='/userList' element={<UserListContainer />}/>
+           
+            <Route  path='/' element={<UserListContainer />}/>
             <Route  path='/status/:statusId' element={<UserListContainer />}/>
             <Route  path='/userEdit' element={<UserEditContainer />}/>
             <Route  path='/calendar' element={<CalendarContainer />}/>

@@ -2,21 +2,30 @@ import React from 'react'
 import './HomePage.css'
 import { Link } from 'react-router-dom'
 import NavBar from '../NavBar/NavBar'
-import { useContex, useState, useEffect } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { Auth } from '../AuthContext/AuthContext'
 import CircularProgress from '@mui/material/CircularProgress';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function HomePage() {
+    const navigate = useNavigate()
+    const { userLog, adminUser, userInfo, cerrarSesion } = useContext(Auth)
     const [loading, setLoading] = useState(true)
-    const initializeNavBar = () => {
-        setTimeout(() => {
-            setLoading(false)
-        }, 1500)
+    const initializeHomePage = () => {
+        if (userLog === true) {
+            setTimeout(() => {
+                setLoading(false)
+            }, 1500)
+
+        }
+
     }
     useEffect(() => {
-        initializeNavBar()
-    }, [])
+        setTimeout(() => {
+            initializeHomePage()
+        }, 1000)
+    }, [userLog])
 
 
     return (

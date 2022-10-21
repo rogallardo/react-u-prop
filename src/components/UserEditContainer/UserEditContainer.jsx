@@ -1,19 +1,13 @@
 import React from 'react'
-
 import {collection, where, getDocs, getFirestore, query} from 'firebase/firestore'
 import UserEdit from '../UserEdit/UserEdit'
 import { useEffect, useState } from 'react'
 import CircularProgress from '@mui/material/CircularProgress';
-import './userEditContainer.css'
-import NavBar from '../NavBar/NavBar';
-
-
-export default function UserEditContainer() {
-    const [usersList, setUsersList] = useState([])
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(false)
-
-    /*useEffect(() =>{
+import './userEditContainer.css';
+import { useContext } from 'react';
+import { Auth } from '../AuthContext/AuthContext';
+import { useNavigate } from 'react-router-dom';
+  /*useEffect(() =>{
       const db = getFirestore();
       const collectionRef = collection(db, 'products');
        
@@ -52,34 +46,96 @@ export default function UserEditContainer() {
         })
       }
     }, [categoryId]);*/
-   
-  
-  useEffect(() =>{
-    console.log("llamado a API UserEditContainer")
-    const db = getFirestore();
-    const collectionRef = collection(db, 'users');
-      let collectionFound = new Promise((res, rej)=>{
-        setTimeout(()=>{res(getDocs(collectionRef))}, 1000)
-      })
 
-      collectionFound
-      .then((res)=> {
-        const arrNormalizado = res.docs.map((user)=>({...user.data(), id: user.id}));
+export default function UserEditContainer() {
+  const { userLog, adminUser, userInfo, cerrarSesion } = useContext(Auth)
+  const [usersList, setUsersList] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
+  
+  const [userLogCheck, setUserLogCheck] = useState(null)
+  const navigate = useNavigate()
+  
+
+  useEffect(() => {
+    if(userLog === true ){
+     if(adminUser === true){
+       usersRequest()
+     }else if(adminUser === false){
+       usersRequestDemo()
+     } 
+   }  
+   setTimeout(()=>{
+     if(userLog === false){
+       setUserLogCheck(false)
+     }
+   }, 4000)
+ }, [adminUser])
+
+ useEffect(() => {
+  setTimeout(()=>{
+    if(userLog === false && userLogCheck === false){
+      navigate('/login')
+    }
+  }, 7000)
+}, [userLogCheck])
+
+
+  function usersRequest() {
+    console.log("llamado a API userListContainer")
+    const db = getFirestore();
+
+    const collectionRef = collection(db, 'users');
+
+
+    let collectionFound = new Promise((res, rej) => {
+      setTimeout(() => { res(getDocs(collectionRef)) }, 1000)
+    })
+
+    collectionFound
+      .then((res) => {
+        const arrNormalizado = res.docs.map((user) => ({ ...user.data(), id: user.id }));
         setUsersList(arrNormalizado);
       })
-      .catch((error)=>{
+      .catch((rej) => {
         setError(true);
+
         console.log("error de carga")
-      
-   
-       
+
       })
-    .finally(()=>{
-      setLoading(false);
+      .finally(() => {
+        setLoading(false);
+      })
+
+  }
+  function usersRequestDemo() {
+
+    const db = getFirestore();
+    const collectionRef = collection(db, 'usersDemo');
+
+
+    let collectionFound = new Promise((res, rej) => {
+      setTimeout(() => { res(getDocs(collectionRef)) }, 1000)
     })
-    
-    
-  }, []);
+
+    collectionFound
+      .then((res) => {
+        const arrNormalizadoDemo = res.docs.map((user) => ({ ...user.data(), id: user.id }));
+        setUsersList(arrNormalizadoDemo);
+      })
+      .catch((rej) => {
+        setError(true);
+
+        console.log("error de carga")
+
+      })
+      .finally(() => {
+        setLoading(false);
+      })
+
+  }
+
+
   return (
     <>
   

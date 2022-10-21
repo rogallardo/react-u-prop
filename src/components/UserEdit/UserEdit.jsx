@@ -3,38 +3,29 @@ import { useState, useEffect } from 'react'
 import { collection, getFirestore, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore'
 import './UserEdit.css'
 import User from '../User/User'
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import '@fontsource/roboto/300.css';
-import { PureComponent } from 'react'
 import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import Stack from '@mui/material/Stack';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import { format, addDays, parse } from 'date-fns/esm';
+import { format, addDays } from 'date-fns/esm';
 import CreateIcon from '@mui/icons-material/Create';
-
-import Button from '@mui/material/Button';
-import Collapse from '@mui/material/Collapse';
+import { useContext } from 'react';
+import { Auth } from '../AuthContext/AuthContext';
 import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { TransitionGroup } from 'react-transition-group';
-import Alert from '@mui/material/Alert';
 
 
 export default function UserEdit({ usersList }) {
-
+    const { userLog, adminUser, userInfo, cerrarSesion } = useContext(Auth)
     let today = new Date()
     let todayFormated = format(today, "dd/MM/yyyy")
     const [copyUsersList, setCopyUsersList] = useState(usersList)
@@ -59,17 +50,9 @@ export default function UserEdit({ usersList }) {
        handleNewLastContactDate() 
     }, [calendarDate])
 
-    
-
-
-
     useEffect(() => {
-        nextContactDateSetter()
-        
-
+        nextContactDateSetter()       
     }, [newStatus])
-
-
 
     useEffect(() => {
         coincidenciasNombre()
@@ -164,7 +147,6 @@ export default function UserEdit({ usersList }) {
     }
     const handleNewStatus = (e) => {
         setNewStatus(e.target.value)
-
     }
 
  
@@ -269,13 +251,21 @@ export default function UserEdit({ usersList }) {
 
             
         }
-
         const db = getFirestore();
+        if(adminUser===true){   
         const usersDoc = collection(db, "users")
         addDoc(usersDoc, addedUser).then(({ id }) => {
             setCopyUsersList([...copyUsersList, { ...addedUser, id: id }])
             setUsersMatch([...usersMatch, { ...addedUser, id: id }])
-        })
+        })   
+        }else if(adminUser===false){
+            const usersDoc = collection(db, "usersDemo")
+            addDoc(usersDoc, addedUser).then(({ id }) => {
+                setCopyUsersList([...copyUsersList, { ...addedUser, id: id }])
+                setUsersMatch([...usersMatch, { ...addedUser, id: id }])
+            })   
+        }
+        
 
         clearForm()
     }
@@ -310,9 +300,17 @@ export default function UserEdit({ usersList }) {
 
     const deleteUser = async (id) => {
         const db = getFirestore();
+        if(adminUser===true){
+             
         await deleteDoc(doc(db, "users", id));
         handleAnimationDelete(id)
-        setTimeout(() => { removeItem(id) }, 700);
+        setTimeout(() => { removeItem(id) }, 700); 
+        }else if(adminUser===false){
+            await deleteDoc(doc(db, "usersDemo", id));
+        handleAnimationDelete(id)
+        setTimeout(() => { removeItem(id) }, 700); 
+        }
+      
 
     }
 
@@ -321,11 +319,15 @@ export default function UserEdit({ usersList }) {
     return (
         <>
             <div className='big-container-userEdit'>
+            <Typography component={'span'} variant={'body2'} >
                 <div className='principalTitle-container'>
-                    <Typography >
-                        <p className='principalTitle'>Ingrese usuario</p>
-                    </Typography>
+                   
+                        
+                        <h1 className='principalTitle'> Ingrese usuario</h1>
+                            
+                    
                 </div>
+                </Typography>
 
                 <div className='inputs-container-userEdit'>
                     <div className='inputs-subcontainer-userEdit'>
@@ -412,11 +414,15 @@ export default function UserEdit({ usersList }) {
                     </div>
 
                 </div>
+                <Typography component={'span'} variant={'body2'}  >
                 <div className='principalTitle-container'>
-                    <Typography >
-                        <p className='principalTitle'>Coincidencias</p>
-                    </Typography>
+                 
+                       
+                        <h1 className='principalTitle'>  Coincidencias  </h1>
+                        
+                   
                 </div>
+                </Typography>
 
                 <div className='list-itemsContainer'>
 

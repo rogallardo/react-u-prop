@@ -1,36 +1,14 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { collection, getFirestore, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore'
+import { getFirestore, doc, deleteDoc } from 'firebase/firestore'
 import './userList.css'
 import User from '../User/User'
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import '@fontsource/roboto/300.css';
-import { PureComponent } from 'react'
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import Fab from '@mui/material/Fab';
-import AddIcon from '@mui/icons-material/Add';
-import Stack from '@mui/material/Stack';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { format, addDays } from 'date-fns/esm';
 import CreateIcon from '@mui/icons-material/Create';
-
-import Button from '@mui/material/Button';
-import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { TransitionGroup } from 'react-transition-group';
-import Alert from '@mui/material/Alert';
 import SearchIcon from '@mui/icons-material/Search';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
@@ -38,11 +16,14 @@ import Divider from '@mui/material/Divider';
 import MenuIcon from '@mui/icons-material/Menu';
 import DirectionsIcon from '@mui/icons-material/Directions';
 import NavBar from '../NavBar/NavBar'
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom'
+import { Auth } from '../AuthContext/AuthContext';
 
 
 export default function UserList({ usersList }) {
     let today = new Date()
-
+    const { userLog, adminUser, userInfo, cerrarSesion } = useContext(Auth)
     let todayFormat = format(today, "yyyy/MM/dd")
     const [copyUsersList, setCopyUsersList] = useState(usersList)
     const [newValue, setNewValue] = useState('')
@@ -232,9 +213,17 @@ export default function UserList({ usersList }) {
 
     const deleteUser = async (id) => {
         const db = getFirestore();
+        if(adminUser===true){
+             
         await deleteDoc(doc(db, "users", id));
         handleAnimationDelete(id)
-        setTimeout(() => { removeItem(id) }, 700);
+        setTimeout(() => { removeItem(id) }, 700); 
+        }else if(adminUser===false){
+            await deleteDoc(doc(db, "usersDemo", id));
+        handleAnimationDelete(id)
+        setTimeout(() => { removeItem(id) }, 700); 
+        }
+      
 
     }
 
@@ -330,7 +319,7 @@ export default function UserList({ usersList }) {
                 </div>
 
                 <div className='principalTitle-container'>
-                    <Typography >
+                <Typography component={'span'} variant={'body2'} >
                         <h1 className='principalTitle'>Resultados</h1>
                     </Typography>
                 </div>

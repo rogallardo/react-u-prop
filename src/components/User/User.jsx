@@ -1,33 +1,16 @@
 import React from 'react'
 import './User.css'
 import Test from '../test/Test'
-import { useState, useEffect, useRef } from 'react'
-import { collection, where, getDocs, getFirestore, query, doc, updateDoc, deleteDoc } from 'firebase/firestore'
-import Button from '@mui/material/Button';
+import { useState, useEffect } from 'react'
+import {getFirestore, doc, updateDoc } from 'firebase/firestore'
+import Button from '@mui/material/Button'; 
 import Typography from '@mui/material/Typography';
-
-import Menu from '@mui/material/Menu';
-
-import Box from '@mui/material/Box';
-
+import { useContext } from 'react';
+import { Auth } from '../AuthContext/AuthContext';
 import '@fontsource/roboto/300.css';
-import { PureComponent } from 'react'
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-
-import AddIcon from '@mui/icons-material/Add';
-import Stack from '@mui/material/Stack';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import StatusSelector from '../StatusSelector/StatusSelector';
 import CreateIcon from '@mui/icons-material/Create';
-import { format, addDays, parse } from 'date-fns/esm';
+import { format, addDays} from 'date-fns/esm';
 
 import IconButton from '@mui/material/IconButton';
 
@@ -64,7 +47,7 @@ export default function User({ user, id, name, googleName, cityLabel, phone, lin
 
     /*************************************************************************************************************************************************************************/
 
-
+    const { userLog, adminUser, userInfo, cerrarSesion } = useContext(Auth)
     const [statusEdited, setStatusEdited] = useState(status)
     const [nextContactDayEdited, setNextContactDayEdited] = useState(nextContactDate)
     const [lastContactDayEdited, setLastContactDayEdited] = useState(lastContactDate)
@@ -89,9 +72,11 @@ export default function User({ user, id, name, googleName, cityLabel, phone, lin
     useEffect(() => {
         user.status=statusEdited
         if (renderDate === true) {
-            newDateContactSetter()          
+            newDateContactSetter() 
+                    
         }
-        updateStatus()
+        updateStatus() 
+        
     
  
     }, [statusEdited]);
@@ -153,24 +138,39 @@ export default function User({ user, id, name, googleName, cityLabel, phone, lin
             renderDateSetter()
 
         }
-        const updateLastContactDate  = async () => {
+        const updateLastContactDate  =  () => {
             const db = getFirestore();
-            const usersDoc = doc(db, "users", id)
-            await updateDoc(usersDoc, { lastContactDate: lastContactDayEdited })
+            if(adminUser===true){
+               const usersDoc = doc(db, "users", id)
+            updateDoc(usersDoc, { lastContactDate: lastContactDayEdited }) 
+            }else if(adminUser===false){
+                const usersDoc = doc(db, "usersDemo", id)
+             updateDoc(usersDoc, { lastContactDate: lastContactDayEdited }) 
+            }
+            
             
         }
         const updateNextContactDate  = async () => {
             const db = getFirestore();
-            const usersDoc = doc(db, "users", id)
-            await updateDoc(usersDoc, { nextContactDate: nextContactDayEdited })
+            if(adminUser===true){
+                  const usersDoc = doc(db, "users", id)
+            updateDoc(usersDoc, { nextContactDate: nextContactDayEdited })
+            }else if(adminUser===false){
+                const usersDoc = doc(db, "usersDemo", id)
+            updateDoc(usersDoc, { nextContactDate: nextContactDayEdited })
+            }
+          
         }
 
         const updateStatus = async () => {
             const db = getFirestore();
-            const usersDoc = doc(db, "users", id)
+            if(adminUser===true){
+                 const usersDoc = doc(db, "users", id)
             await updateDoc(usersDoc, { status: statusEdited })
-            
-            
+            }else if(adminUser===false){
+                const usersDoc = doc(db, "usersDemo", id)
+            await updateDoc(usersDoc, { status: statusEdited }) 
+            }
         }
 
         if (width > breakpoint) {
@@ -179,10 +179,10 @@ export default function User({ user, id, name, googleName, cityLabel, phone, lin
 
                     <div className='user-container'>
                         <div className='user-subcontainer'>
-                            <div className='usertext-container'><Typography><p >{name}</p></Typography></div>
-                            <div className='usertext-container'><Typography><p >{cityLabel}</p></Typography></div>
-                            <div className='usertext-container'><Typography><p >{googleName}</p></Typography></div>
-                            <div className='usertext-container'><Typography><p >{phone}</p></Typography></div>
+                            <Typography component={'span'} variant={'body2'} ><div className='usertext-container'><p >{name}</p></div></Typography>
+                            <Typography component={'span'} variant={'body2'} ><div className='usertext-container'><p >{cityLabel}</p></div></Typography>
+                            <Typography component={'span'} variant={'body2'} ><div className='usertext-container'><p >{googleName}</p></div></Typography>
+                            <Typography component={'span'} variant={'body2'} ><div className='usertext-container'><p >{phone}</p></div></Typography>
                             <div className='usertext-container'><a href={link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', padding: '0px', margin: '0px' }}> <Button sx={{ m: 0, underline: 'hide', padding: "0px" }} variant="text" size='small'>Link</Button></a></div>
                             <div className='usertext-container'>
                                 < StatusSelector handleStatusEdited={handleStatusEdited} statusEdited={statusEdited} status={status} />
@@ -200,9 +200,9 @@ export default function User({ user, id, name, googleName, cityLabel, phone, lin
                     <div className='user-subcontainer-mobile'>
                         <div className='user-subcontainer-org'>
                             <div className='user-subcontainer-orgChild'>
-                                <div className='usertext-container-mobile'><Typography><p>{name}</p></Typography></div>
-                                <div className='usertext-container-mobile'><Typography><p>{googleName}</p></Typography></div>
-                                <div className='usertext-container-mobile'>
+                            <Typography component={'span'} variant={'body2'} ><div className='usertext-container-mobile'><p>{name}</p></div></Typography>
+                            <Typography component={'span'} variant={'body2'} ><div className='usertext-container-mobile'><p>{googleName}</p></div></Typography>
+                          <div className='usertext-container-mobile'>
                                     <IconButton
                                         edge="end"
                                         aria-label="Editar"
@@ -214,8 +214,8 @@ export default function User({ user, id, name, googleName, cityLabel, phone, lin
                                 </div>
                             </div>
                             <div className='user-subcontainer-orgChild'>
-                                <div className='usertext-container-mobile'><Typography><p>{phone}</p></Typography></div>
-                                <div className='usertext-container-mobile'><Typography><p>{cityLabel}</p></Typography></div>
+                            <Typography component={'span'} variant={'body2'} ><div className='usertext-container-mobile'><p>{phone}</p></div></Typography>
+                            <Typography component={'span'} variant={'body2'} ><div className='usertext-container-mobile'><p>{cityLabel}</p></div></Typography>
                             </div>
 
                         </div>

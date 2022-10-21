@@ -3,41 +3,17 @@ import { useState, useEffect } from 'react'
 import { collection, getFirestore, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore'
 import './calendar.css'
 import User from '../User/User'
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import '@fontsource/roboto/300.css';
-import { PureComponent } from 'react'
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import Fab from '@mui/material/Fab';
-import AddIcon from '@mui/icons-material/Add';
-import Stack from '@mui/material/Stack';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import { format, addDays, parse } from 'date-fns/esm';
+import { format, addDays } from 'date-fns/esm';
 import CreateIcon from '@mui/icons-material/Create';
-
-import Button from '@mui/material/Button';
-import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { TransitionGroup } from 'react-transition-group';
-import Alert from '@mui/material/Alert';
 import SearchIcon from '@mui/icons-material/Search';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
-import Divider from '@mui/material/Divider';
-import MenuIcon from '@mui/icons-material/Menu';
-import DirectionsIcon from '@mui/icons-material/Directions';
-
+import { useContext } from 'react';
+import { Auth } from '../AuthContext/AuthContext';
 
 /* const coincidenciasCiudad = () => {
       if (newCity !== "") {
@@ -73,14 +49,14 @@ import DirectionsIcon from '@mui/icons-material/Directions';
 
 
 export default function Calendar({ usersList }) {
-
+    const { userLog, adminUser, userInfo, cerrarSesion } = useContext(Auth)
     const [copyUsersList, setCopyUsersList] = useState(usersList)
     const [newValue, setNewValue] = useState('')
     const [todayFilter, setTodayFilter] = useState(true)
     const [tomorrowFilter, setTomorrowFilter] = useState(false)
     const [usersMatch, setUsersMatch] = useState([])
     const [hoverID, setHoverID] = useState()
-
+    
     const [titleDate, setTitleDate] = useState("Hoy")
 
 
@@ -312,9 +288,17 @@ export default function Calendar({ usersList }) {
 
     const deleteUser = async (id) => {
         const db = getFirestore();
+        if(adminUser===true){
+             
         await deleteDoc(doc(db, "users", id));
         handleAnimationDelete(id)
-        setTimeout(() => { removeItem(id) }, 700);
+        setTimeout(() => { removeItem(id) }, 700); 
+        }else if(adminUser===false){
+            await deleteDoc(doc(db, "usersDemo", id));
+        handleAnimationDelete(id)
+        setTimeout(() => { removeItem(id) }, 700); 
+        }
+      
 
     }
 
@@ -327,12 +311,12 @@ export default function Calendar({ usersList }) {
                 <div className='menu-container-calendar'>
                     <div className='titleDate-Date-container'>
                         <div className='titleDate-container'>
-                            <Typography >
+                        <Typography component={'span'} variant={'body2'} >
                                 <p className='titleDate'>{titleDate}</p>
                             </Typography>
                         </div>
                         <div className='date-container'>
-                        <Typography >
+                        <Typography component={'span'} variant={'body2'} >
                                 <p className='subtitleDate'>Pendientes</p>
                             </Typography>
                         </div>
@@ -342,13 +326,13 @@ export default function Calendar({ usersList }) {
                         todayFilter ? 
 
                       <div className='btnsDate-calendar' onClick={() => { tomorrowPendings() }}>
-                    <Typography >
+                    <Typography component={'span'} variant={'body2'} >
                             <p className='titleBtn-calendar'>Ver mañana</p>
                         </Typography>
                     </div> 
                     :  
                     <div className='btnsDate-calendar' onClick={() => { todayPendings() }}>
-                    <Typography >
+                    <Typography component={'span'} variant={'body2'} >
                             <p className='titleBtn-calendar'>Ver hoy</p>
                         </Typography>
                     </div>
