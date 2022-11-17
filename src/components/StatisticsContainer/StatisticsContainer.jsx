@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import Calendar from '../Calendar/Calendar'
-import './calendarContainer.css'
+import Statistics from '../Statistics/Statistics'
+import './statisticsContainer.css'
 import { collection, where, getDocs, getFirestore, query } from 'firebase/firestore'
 import CircularProgress from '@mui/material/CircularProgress';
 import { useContext } from 'react';
@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-export default function CalendarContainer() {
+export default function StatisticsContainer() {
   const { userLog, adminUser, userInfo, cerrarSesion } = useContext(Auth)
   const [usersList, setUsersList] = useState([])
   const [loading, setLoading] = useState(true)
@@ -127,7 +127,7 @@ export default function CalendarContainer() {
             <CircularProgress />
           </div>
           :
-          <Calendar usersList={usersList} settings={settings} />
+          <Statistics usersList={usersList} settings={settings} />
       }
 
     </>

@@ -1,9 +1,9 @@
 import React from 'react'
 import {collection, where, getDocs, getFirestore, query} from 'firebase/firestore'
-import UserEdit from '../UserEdit/UserEdit'
+import UserCreator from '../UserCreator/UserCreator'
 import { useEffect, useState } from 'react'
 import CircularProgress from '@mui/material/CircularProgress';
-import './userEditContainer.css';
+import './userCreatorContainer.css'; 
 import { useContext } from 'react';
 import { Auth } from '../AuthContext/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -47,51 +47,48 @@ import { useNavigate } from 'react-router-dom';
       }
     }, [categoryId]);*/
 
-export default function UserEditContainer() {
+export default function UserCreatorContainer() {
   const { userLog, adminUser, userInfo, cerrarSesion } = useContext(Auth)
   const [usersList, setUsersList] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   
   const [userLogCheck, setUserLogCheck] = useState(null)
+  const [settings, setSettings] = useState([])
   const navigate = useNavigate()
-  
 
   useEffect(() => {
-    if(userLog === true ){
-     if(adminUser === true){
-       usersRequest()
-     }else if(adminUser === false){
-       usersRequestDemo()
-     } 
-   }  
-   setTimeout(()=>{
-     if(userLog === false){
-       setUserLogCheck(false)
-     }
-   }, 4000)
- }, [adminUser])
-
- useEffect(() => {
-  setTimeout(()=>{
-    if(userLog === false && userLogCheck === false){
-      navigate('/login')
+    if (userLog === true) {
+      if (adminUser === true) {
+        usersRequest()
+      } else if (adminUser === false) {
+        usersRequestDemo()
+      }
     }
-  }, 7000)
-}, [userLogCheck])
+    setTimeout(() => {
+      if (userLog === false) {
+        setUserLogCheck(false)
+      }
+    }, 5000)
+  }, [adminUser])
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (userLog === false && userLogCheck === false) {
+        navigate('/login')
+      }
+    }, 10000)
+  }, [userLogCheck])
 
 
   function usersRequest() {
+    getSettings()
     console.log("llamado a API userListContainer")
     const db = getFirestore();
-
     const collectionRef = collection(db, 'users');
-
-
     let collectionFound = new Promise((res, rej) => {
       setTimeout(() => { res(getDocs(collectionRef)) }, 1000)
     })
-
     collectionFound
       .then((res) => {
         const arrNormalizado = res.docs.map((user) => ({ ...user.data(), id: user.id }));
@@ -108,8 +105,9 @@ export default function UserEditContainer() {
       })
 
   }
-  function usersRequestDemo() {
 
+  function usersRequestDemo() {
+    getSettings()
     const db = getFirestore();
     const collectionRef = collection(db, 'usersDemo');
 
@@ -135,6 +133,27 @@ export default function UserEditContainer() {
 
   }
 
+  const fetchingSettings = () => {
+    return new Promise((res, rej) => {
+      const db = getFirestore();
+      const collectionRefSettings = collection(db, 'settings');
+      setTimeout(() => {
+        res(getDocs(collectionRefSettings))
+      }, 1000);
+    })
+  }
+  const getSettings = async () => {
+    try {
+      const fetchData = await fetchingSettings()
+      const arrNormalizado = fetchData.docs.map((setting) => ({ ...setting.data() }));
+      setSettings(arrNormalizado[0]);
+
+    } catch (error) {
+      console.log("error")
+    }
+
+  }
+
 
   return (
     <>
@@ -146,7 +165,7 @@ export default function UserEditContainer() {
             <CircularProgress />
         </div>
         : 
-        <UserEdit usersList={usersList}/> 
+        <UserCreator usersList={usersList} settings={settings}/> 
     }
 </div>
 </>

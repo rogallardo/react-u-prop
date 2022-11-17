@@ -1,0 +1,80 @@
+.sideBarMobile-container{
+    display: flex;
+    width: 50px;
+    height: 100%;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(217, 222, 227);
+    position: fixed;
+    z-index: 3;
+    box-shadow: 1px 0px 9px 0px rgba(0,0,0,0.75);
+-webkit-box-shadow: 1px 0px 5px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 1px 0px 9px 0px rgba(0,0,0,0.75);
+animation-name: sidebarMobileAppear;
+    animation-fill-mode: forwards;
+    animation-duration: 0.3s;
+    
+}
+
+
+
+@keyframes sidebarMobileAppear {
+    0% {width: 0px; transform: translateX(-50px); };
+    100% {width: 50px;transform: translateX(50px); }
+}
+.icon-container-Mobile{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 47px;
+    height: 47px;
+    margin-top: 20px;
+    transition-duration: 300ms;
+    background-color: rgb(217, 222, 227);
+    border-radius: 5px;
+    border: solid 1px rgb(217, 222, 227) ;
+}
+
+.icon-subcontainer-Mobile{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+   
+    transition-duration: 300ms;
+    background-color: rgb(217, 222, 227);
+    border-radius: 5px;
+    border: solid 1px rgb(217, 222, 227) ;
+}
+.icon-subcontainer-Mobile:hover{
+    display: flex;
+
+    margin-bottom: 5px ;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border: solid 1px white;
+    border-radius: 5px;
+    cursor:pointer;
+    transition-duration: 300ms;
+    box-shadow: 1px 0px 9px 0px rgba(255, 255, 255, 0.75);
+-webkit-box-shadow: 1px 0px 15px 0px rgba(255, 255, 255, 0.75);
+-moz-box-shadow: 1px 0px 9px 0px rgba(255, 255, 255, 0.75);
+}
+.icon-pressed-Mobile{
+    display: flex;
+    margin-bottom: 5px ;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: rgb(255, 255, 255);
+    border: solid 1px rgb(255, 255, 255) ;
+   cursor:pointer;
+   box-shadow: 1px 0px 9px 0px rgba(255, 255, 255, 0.75);
+-webkit-box-shadow: 1px 0px 5px 0px rgba(255, 255, 255, 0.75);
+-moz-box-shadow: 1px 0px 9px 0px rgba(255, 255, 255, 0.75);
+    border-radius: 5px;
+}

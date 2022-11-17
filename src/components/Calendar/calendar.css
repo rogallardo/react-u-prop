@@ -17,6 +17,7 @@
     height: 100px;
     
     margin-bottom: 10px;
+    margin-top:50px;
    
   
 }
@@ -27,7 +28,7 @@
     justify-content: center;
     align-items: center;
     height: 82px;
-    width: 470px;
+    width: 700px;
    
     border-left: solid 10px rgba(178, 201, 229, 0.802);
     margin-bottom: 10px;

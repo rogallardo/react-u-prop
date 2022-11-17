@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { collection, getFirestore, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore'
-import './UserEdit.css'
+import './userCreator.css'
 import User from '../User/User'
 import Typography from '@mui/material/Typography';
 import '@fontsource/roboto/300.css';
@@ -22,18 +22,19 @@ import { useContext } from 'react';
 import { Auth } from '../AuthContext/AuthContext';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Link } from 'react-router-dom'
+import swal from 'sweetalert'
 
-
-export default function UserEdit({ usersList }) {
+export default function UserCreator({ usersList, settings }) {
     const { userLog, adminUser, userInfo, cerrarSesion } = useContext(Auth)
     let today = new Date()
     let todayFormated = format(today, "dd/MM/yyyy")
+    const [cities, setCities] = useState(settings.cities)
     const [copyUsersList, setCopyUsersList] = useState(usersList)
     const [newName, setNewName] = useState('')
     const [newGoogleName, setNewGoogleName] = useState('')
     const [newPhone, setNewPhone] = useState('')
     const [newCity, setNewCity] = useState('')
-    const [newCityLabel, setNewCityLabel] = useState('')
     const [newLink, setNewLink] = useState('')
     const [newStatus, setNewStatus] = useState("Sin contactar")
     const [calendarDate, setCalendarDate] = useState(today)
@@ -44,7 +45,13 @@ export default function UserEdit({ usersList }) {
     const [usersMatch, setUsersMatch] = useState([])
     const [animationDelete, setAnimationDelete] = useState(false)
     const [hoverID, setHoverID] = useState()
-
+    
+ 
+  
+    
+    useEffect(() => {
+        citiesSorter()
+    }, [])
 
     useEffect(() => {
        handleNewLastContactDate() 
@@ -65,12 +72,17 @@ export default function UserEdit({ usersList }) {
 
     useEffect(() => {
         coincidenciasCiudad()
-        cityLabelConverse()
     }, [newCity])
 
     useEffect(() => {
         coincidenciasTelefono()
     }, [newPhone])
+
+
+    const citiesSorter = ()=>{
+        let citiesSorted = cities.sort()
+        setCities(citiesSorted)
+    }
 
     const coincidenciasNombre = () => {
         if (newName === "") {
@@ -122,17 +134,6 @@ export default function UserEdit({ usersList }) {
         }
     }
 
-    const cityLabelConverse = () => {
-
-        if (newCity === "palermo") {
-            setNewCityLabel("Palermo")
-        } else if (newCity === "urquiza") {
-            setNewCityLabel("Villa Urquiza")
-        } else if (newCity === "devoto") {
-            setNewCityLabel("Villa Devoto")
-        }
-    }
-
     const handleNewPhone = (e) => {
         setNewPhone(e.target.value)
     }
@@ -162,67 +163,79 @@ export default function UserEdit({ usersList }) {
        
             setNewLastContactDate(calendarDateFormated)
             if (newStatus === "Contactado") {
-                const birthday = addDays(calendarDate, 20);
+                const birthday = addDays(calendarDate, `${settings.contactadoAddDays}`);
                 let birthFormat = format(birthday, "MM/dd/yyyy")
-                console.log(birthFormat)
                 setNewNextContactDate(birthFormat)
                
 
             } else if (newStatus === "Re-contactado") {
-                const birthday = addDays(calendarDate, 3);
+                const birthday = addDays(calendarDate, `${settings.reContactadoAddDays}`);
                 let birthFormato = format(birthday, "MM/dd/yyyy")
-                console.log(birthFormato)
                 setNewNextContactDate(birthFormato)
             } else if (newStatus === "Propuesta") {
-                const birthday = addDays(calendarDate, 3);
+                const birthday = addDays(calendarDate, `${settings.propuestaAddDays}`);
                 let birthFormatho = format(birthday, "MM/dd/yyyy")
-                console.log(birthFormatho)
                 setNewNextContactDate(birthFormatho)
               
-
+              }  else if (newStatus === "Visita") {
+                    const birthday = addDays(calendarDate, `${settings.visitaAddDays}`);
+                    let birthFormatho = format(birthday, "MM/dd/yyyy")
+                    setNewNextContactDate(birthFormatho)
 
             } else if (newStatus === "Sin contactar") {
                
                 setNewLastContactDate("-")
                 setNewNextContactDate("-")
 
+            } else if (newStatus === "Rechazado"){
+                    setNewNextContactDate("-")
+            } else if (newStatus === "Captado"){
+                setNewNextContactDate("-")
             }
-      
 
     };
 
     const nextContactDateSetter = () => {
-        let calendarDateFormateded = format(calendarDate, "MM/dd/yyyy")
-       
+        let calendarDateFormateded = format(calendarDate, "MM/dd/yyyy")       
             setNewLastContactDate(calendarDateFormateded)
 
         if (newStatus === "Sin contactar") {
             setCalendarDate(today)
             setNewNextContactDate("-")
             setNewLastContactDate("-")
-       } else if (newStatus === "Contactado") {
-       
-         const nextDay = addDays(calendarDate, 20);
+       } else if (newStatus === "Contactado") {       
+         const nextDay = addDays(calendarDate, `${settings.contactadoAddDays}`);
             let nextFormat = format(nextDay, "MM/dd/yyyy")
-            console.log(nextFormat)
             setNewLastContactDate(calendarDateFormateded)
             setNewNextContactDate(nextFormat)
+            console.log(settings.contactadoAddDays)
 
         } else if (newStatus === "Re-contactado") {
-            const nextDay = addDays(calendarDate, 3);
+            const nextDay = addDays(calendarDate, `${settings.reContactadoAddDays}`);
             let nextFormated = format(nextDay, "MM/dd/yyyy")
             setNewLastContactDate(calendarDateFormateded)
             setNewNextContactDate(nextFormated)
-            console.log(nextFormated)
+
 
         } else if (newStatus === "Propuesta") {
-            const nextDay = addDays(calendarDate, 3);
+            const nextDay = addDays(calendarDate, `${settings.propuestaAddDays}`);
             let nextFormatedo = format(nextDay, "MM/dd/yyyy")
             setNewLastContactDate(calendarDateFormateded)
             setNewNextContactDate(nextFormatedo)
-            console.log(nextFormatedo)
-        }
 
+        } else if (newStatus === "Visita") {
+            const nextDay = addDays(calendarDate, `${settings.visitaAddDays}`);
+            let nextFormatedo = format(nextDay, "MM/dd/yyyy")
+            setNewLastContactDate(calendarDateFormateded)
+            setNewNextContactDate(nextFormatedo)
+
+        } else if (newStatus === "Rechazado") {           
+            setNewLastContactDate(calendarDateFormateded)
+            setNewNextContactDate("-")
+        } else if (newStatus === "Captado") {           
+            setNewLastContactDate(calendarDateFormateded)
+            setNewNextContactDate("-")
+        }
     }
 
 
@@ -243,7 +256,6 @@ export default function UserEdit({ usersList }) {
             googleName: newGoogleName,
             phone: newPhone,
             city: newCity,
-            cityLabel: newCityLabel,
             link: newLink,
             status: newStatus,
             lastContactDate: newLastContactDate,
@@ -274,7 +286,6 @@ export default function UserEdit({ usersList }) {
         setNewPhone('')
         setNewCity('')
         setNewName('')
-        setNewCityLabel('')
         setNewLink('')
         setNewGoogleName('')
         setNewLastContactDate("-")
@@ -297,7 +308,23 @@ export default function UserEdit({ usersList }) {
         setCopyUsersList(resp)
         setUsersMatch(resp2)
     }
+    const alertDelete = (id)=>{
+     
+        swal({
+            title:"Eliminar",
+            text:"¿Desea eliminar usuario?",
+            icon: "warning",
+            buttons: ["Cancelar", "Eliminar"]
 
+        }).then(response=>{
+            if(response){
+                deleteUser(id)
+                swal({text:"El usuario ha sido eliminado",
+                        icon:"success"
+            })
+            }
+        })
+    }
     const deleteUser = async (id) => {
         const db = getFirestore();
         if(adminUser===true){
@@ -305,10 +332,12 @@ export default function UserEdit({ usersList }) {
         await deleteDoc(doc(db, "users", id));
         handleAnimationDelete(id)
         setTimeout(() => { removeItem(id) }, 700); 
+    
         }else if(adminUser===false){
             await deleteDoc(doc(db, "usersDemo", id));
         handleAnimationDelete(id)
         setTimeout(() => { removeItem(id) }, 700); 
+     
         }
       
 
@@ -331,14 +360,14 @@ export default function UserEdit({ usersList }) {
 
                 <div className='inputs-container-userEdit'>
                     <div className='inputs-subcontainer-userEdit'>
-                        <div className='input-style'>
-                            <TextField id="outlined-basic" label="Nombre" variant="outlined" onChange={handleNewName} value={newName} />
+                        <div className='input-style-creator'>
+                            <TextField overflow='hidden' id="outlined-basic" label="Nombre" variant="outlined" onChange={handleNewName} value={newName} size="small"/>
                         </div>
-                        <div className='input-style'>
+                        <div className='input-style-creator'>
 
-                            <FormControl variant="outlined" sx={{ m: 0, minWidth: 140 }}>
+                            <FormControl size="small" variant="outlined" sx={{ m: 0, width: 200, overflow:"hidden" }}>
 
-                                <InputLabel id="demo-simple-select-standard-label">Ciudad</InputLabel>
+                                <InputLabel  size="small" id="demo-simple-select-standard-label" overflow="hidden" >Ciudad</InputLabel>
 
                                 <Select
                                     labelId="demo-simple-select-standard-label"
@@ -346,46 +375,52 @@ export default function UserEdit({ usersList }) {
                                     value={newCity}
                                     onChange={handleNewCity}
                                     label="Ciudad"
+                                    size="small"
+                                    overflow="hidden"
                                 >
-                                    <MenuItem value="">
-                                        <em>Todas</em>
-                                    </MenuItem>
-                                    <MenuItem value={"palermo"}>Palermo</MenuItem>
-                                    <MenuItem value={"devoto"}>Villa Devoto</MenuItem>
-                                    <MenuItem value={"urquiza"}>Villa Urquiza</MenuItem>
+                                    <MenuItem value="">Todas las ciudades</MenuItem> 
+                                    {
+                                        cities.map((x, y)=>
+                                          <MenuItem key={y} value={x}>{x}</MenuItem>   
+                                    )
+                                    }
                                 </Select>
                             </FormControl>
                         </div>
-                        <div className='input-style'>
-                            <TextField id="outlined-basic" label="Contacto Google" variant="outlined" onChange={handleNewGoogleName} value={newGoogleName} />
+                        <div className='input-style-creator'>
+                            <TextField id="outlined-basic" size="small" label="Contacto Google" variant="outlined" onChange={handleNewGoogleName} value={newGoogleName} />
 
                         </div>
-                        <div className='input-style'>
-                            <TextField id="outlined-basic" label="Teléfono" variant="outlined" onChange={handleNewPhone} value={newPhone} />
+                        <div className='input-style-creator'>
+                            <TextField id="outlined-basic" size="small" label="Teléfono" variant="outlined" onChange={handleNewPhone} value={newPhone} />
 
                         </div>
-                        <div className='input-style'>
-                            <TextField id="outlined-basic" label="Link" variant="outlined" onChange={(e) => setNewLink(e.target.value)} value={newLink} />
+                        <div className='input-style-creator'>
+                            <TextField id="outlined-basic"  size="small" label="Link" variant="outlined" onChange={(e) => setNewLink(e.target.value)} value={newLink} />
                         </div>
-                        <div className='input-style'>
-                            <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                <Stack spacing={3}>
+                        
+                            <LocalizationProvider  size="small"  dateAdapter={AdapterDateFns}>
+                            <div className='input-style-creator'>
+                                <Stack  size="small"  spacing={3}>
                                     <DesktopDatePicker
                                         disabled={newStatus === "Sin contactar"}
                                         label="Último contacto"
+                                        size="small"
                                         inputFormat="dd/MM/yyyy"
                                         value={calendarDate}
                                         onChange={handleCalendarDate}
-                                        renderInput={(params) => <TextField onKeyDown={onKeyDown} {...params} />}
+                                        renderInput={(params) => <TextField  size="small"  onKeyDown={onKeyDown} {...params} />}
                                     />
 
                                 </Stack>
+                                </div>
                             </LocalizationProvider>
-                        </div>
-                        <div className='input-style'>
-                            <FormControl variant="outlined" sx={{ m: 0, minWidth: 140 }}>
-                                <InputLabel id="demo-simple-select-standard-label">Estado</InputLabel>
+                       
+                        <div className='input-style-creator'>
+                            <FormControl   size="small" variant="outlined" sx={{ m: 0, width: 200 }}>
+                                <InputLabel id="demo-simple-select-standard-label" size="small" >Estado</InputLabel>
                                 <Select
+                                size="small"
                                     labelId="demo-simple-select-standard-label"
                                     id="demo-simple-select-standard"
                                     value={newStatus}
@@ -406,7 +441,7 @@ export default function UserEdit({ usersList }) {
 
                         <div >
 
-                            <Fab onClick={addUser} color="primary" aria-label="add">
+                            <Fab onClick={addUser}  color="primary" aria-label="add">
                                 <AddIcon />
                             </Fab>
 
@@ -447,7 +482,7 @@ export default function UserEdit({ usersList }) {
                             usersMatch.map((user) => (
                                 <div className={(user.id === hoverID) ? 'userCoincidenceContainer-AnimationDelete' : 'userCoincidenceContainer'} key={user.id}>
 
-                                    <div className={(user.id === hoverID) ? 'userComponentContainer-AnimationDelete' : 'userComponentContainer'} ><User user={user} key={user.id} id={user.id} name={user.name} googleName={user.googleName} cityLabel={user.cityLabel} phone={user.phone} link={user.link} status={user.status} lastContactDate={user.lastContactDate} nextContactDate={user.nextContactDate}/> </div>
+                                    <div className={(user.id === hoverID) ? 'userComponentContainer-AnimationDelete' : 'userComponentContainer'} ><User settings={settings} user={user} key={user.id} id={user.id} name={user.name} googleName={user.googleName} city={user.city} phone={user.phone} link={user.link} status={user.status} lastContactDate={user.lastContactDate} nextContactDate={user.nextContactDate}/> </div>
                                     <div className={(user.id === hoverID) ? 'btns-userEdit-container-AnimationDelete' : 'btns-userEdit-container'}>
 
                                         <div className='btn-editar-container'>
@@ -455,7 +490,7 @@ export default function UserEdit({ usersList }) {
                                                 edge="end"
                                                 aria-label="delete"
                                                 title="Edit"
-                                                onClick={() => { handleAnimationDelete(user.id) }}
+                                                component={Link} to={`/user/${user.id}`}
                                             >
                                                 <CreateIcon />
                                             </IconButton>
@@ -465,19 +500,23 @@ export default function UserEdit({ usersList }) {
                                                 edge="end"
                                                 aria-label="delete"
                                                 title="Delete"
-                                                onClick={() => { deleteUser(user.id) }}
+                                                
+                                                onClick={()=>{alertDelete(user.id)}}
                                             >
                                                 <DeleteIcon />
                                             </IconButton></div>
 
                                     </div>
+                                   
+    
+                                       
 
 
                                 </div>
                             ))
 
                             :
-                            <div >No hay coincidencias</div>
+                            <div className='noresults-container'><p>No hay coincidencias</p></div>
                     }
                 </div>
 

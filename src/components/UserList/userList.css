@@ -14,7 +14,7 @@
     justify-content: center;
     width:90%;
     height: 40px;
-    margin-top: 10px;
+    margin-top: 50px;
     margin-bottom: 20px;
     
     
@@ -37,7 +37,7 @@
     min-height: 100%;
     justify-content: center;
     align-items: center;
-    margin-top: 30px;
+    margin-top: 10px;
   
     background-color: rgb(217, 222, 227);
     box-shadow: 7px 8px 14px -6px rgba(117,117,117,0.75);
@@ -64,6 +64,13 @@ font-weight: 700;
    
     height:50px;
 
+}
+.button-excel-container{
+    display: flex;
+    width: 90%;
+    margin-top: 50px;
+    height: 30px;
+    justify-content: right;
 }
 
 

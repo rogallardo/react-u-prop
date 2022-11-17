@@ -16,45 +16,43 @@ export default function UserListContainer() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [userLogCheck, setUserLogCheck] = useState(null)
+  const [settings, setSettings] = useState([])
   const navigate = useNavigate()
 
-
   useEffect(() => {
-     if(userLog === true ){
-      if(adminUser === true){
+    if (userLog === true) {
+      if (adminUser === true) {
         usersRequest()
-      }else if(adminUser === false){
+        
+      } else if (adminUser === false) {
         usersRequestDemo()
-      } 
-    }  
-    setTimeout(()=>{
-      if(userLog === false){
+        
+      }
+    }
+    setTimeout(() => {
+      if (userLog === false) {
         setUserLogCheck(false)
       }
-    }, 4000)
+    }, 5000)
   }, [adminUser])
 
   useEffect(() => {
-   setTimeout(()=>{
-     if(userLog === false && userLogCheck === false){
-       navigate('/login')
-     }
-   }, 7000)
- }, [userLogCheck])
-  
+    setTimeout(() => {
+      if (userLog === false && userLogCheck === false) {
+        navigate('/login')
+      }
+    }, 10000)
+  }, [userLogCheck])
 
 
   function usersRequest() {
+    getSettings()
     console.log("llamado a API userListContainer")
     const db = getFirestore();
-
     const collectionRef = collection(db, 'users');
-
-
     let collectionFound = new Promise((res, rej) => {
-      setTimeout(() => { res(getDocs(collectionRef)) }, 1000)
+      setTimeout(() => { res(getDocs(collectionRef)) }, 1500)
     })
-
     collectionFound
       .then((res) => {
         const arrNormalizado = res.docs.map((user) => ({ ...user.data(), id: user.id }));
@@ -71,8 +69,9 @@ export default function UserListContainer() {
       })
 
   }
-  function usersRequestDemo() {
 
+  function usersRequestDemo() {
+    getSettings()
     const db = getFirestore();
     const collectionRef = collection(db, 'usersDemo');
 
@@ -98,7 +97,27 @@ export default function UserListContainer() {
 
   }
 
+  const fetchingSettings = () => {
+    return new Promise((res, rej) => {
+      const db = getFirestore();
+      const collectionRefSettings = collection(db, 'settings');
+      setTimeout(() => {
+        res(getDocs(collectionRefSettings))
+      }, 1000);
+    })
+  }
+  const getSettings = async () => {
+    try {
+      const fetchData = await fetchingSettings()
+      const arrNormalizado = fetchData.docs.map((setting) => ({ ...setting.data() }));
+      setSettings(arrNormalizado[0]);
+     
 
+    } catch (error) {
+      console.log("error")
+    }
+
+  }
 
 
 
@@ -131,7 +150,7 @@ export default function UserListContainer() {
             <CircularProgress />
           </div>
           :
-          <UserList usersList={usersList} />
+          <UserList usersList={usersList} settings={settings} />
       }
     </>
   )

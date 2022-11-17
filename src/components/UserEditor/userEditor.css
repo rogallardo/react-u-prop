@@ -1,0 +1,160 @@
+.big-containerUserEditor{
+    display: flex;
+    height: 100vh;
+    max-width: 100%;
+    flex-direction: column;
+    background-color: rgb(233, 233, 233);
+}
+.title-userEditor{
+    display: flex;
+    width: auto;
+    font-size: 30px;
+    margin-left: 50px;
+    margin-top: 10px;
+    height: 40px;
+    align-items: center;
+    margin-top: 50px;
+}
+.userEditor-container{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: fit-content;
+    justify-content: center;   
+}
+.userEditor-title{
+    display: flex;
+    width: fit-content;
+   
+}
+.userEditor-subcontainer{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin-left: 40px;
+    height: auto;
+    justify-content: center;
+}
+.userEditor-item{
+    display: flex;
+    background-color: rgb(225, 225, 225);
+    justify-content: space-between;
+    width: 600px;
+    align-items: center;
+    height: 60px;
+    margin-top: 10px;
+    margin-left: 50px
+}
+.text-container-userEditor{
+    display: flex;
+    width: 100px;
+    justify-content: left;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.input-container-userEditor{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 300px;
+    height: 50px;
+}
+.input-style-userEditor{
+    display: flex;
+    width: 170px;
+    height: 100%;
+}
+
+
+
+
+.editIcon-container{
+    display: flex;
+    width: 100px;
+    justify-content: left;
+}
+.saveCancelIcons-container{
+    display: flex;
+    width: 100px;
+}
+
+@media only screen and (max-width: 700px) and (min-width: 200px) {
+    .big-containerUserEditor{
+        display: flex;
+        min-height: 100vh;
+        max-width: 100%;
+        flex-direction: column;
+        background-color: rgb(233, 233, 233);
+    }
+
+    .userEditor-container{
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        height: fit-content;
+        justify-content: center;
+        margin-top:10px;
+        margin-left: 5px;
+       
+    }
+    .userEditor-title{
+        display: flex;
+        width: fit-content;
+       
+    
+    }
+    .userEditor-subcontainer{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+        margin-left: 5px;
+    }
+    .userEditor-item{
+        display: flex;
+        justify-content: space-between;
+        width: 95%;
+        align-items: center;
+        height: 50px;
+        margin-top: 10px;
+        margin-left: 20px;
+        background-color: rgb(225, 225, 225);
+    }
+    .text-container-userEditor{
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        margin-left: 10px;
+        width: 100px;
+
+    }
+    .input-container-userEditor{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 200px;
+        height: 50px;
+        
+    }
+    .input-style-userEditor{
+        display: flex;
+        width: 140px;
+        height: 100%;
+        margin-top: 15px;
+    }
+    
+    .editIcon-container{
+        margin-left: 10px;
+        display: flex;
+        width: 50px;
+        justify-content: left;
+    }
+    .saveCancelIcons-container{
+        display: flex;
+        width: 50px;
+        margin-left: 10px;
+    }
+
+
+}

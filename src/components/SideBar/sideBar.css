@@ -1,0 +1,69 @@
+.sideBar-container{
+    margin-top: 50px;
+    display: flex;
+    width: 50px;
+    height: 100vh;
+    flex-direction: column;
+    background-color: rgb(217, 222, 227);
+    position: fixed;
+    z-index: 1;
+    box-shadow: 1px 0px 9px 0px rgba(0,0,0,0.75);
+-webkit-box-shadow: 1px 0px 5px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 1px 0px 9px 0px rgba(0,0,0,0.75);
+}
+.icon-container{
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+    transition-duration: 300ms;
+    background-color: rgb(217, 222, 227);
+    border-radius: 5px;
+    border: solid 1px rgb(217, 222, 227) ;
+}
+.icon-subcontainer{
+    display: flex;
+    
+   
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    transition-duration: 300ms;
+    background-color: rgb(217, 222, 227);
+    border-radius: 5px;
+    border: solid 1px rgb(217, 222, 227) ;
+}
+.icon-subcontainer:hover{
+    display: flex;
+   
+    margin-bottom: 4px;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border: solid 1px white;
+    border-radius: 5px;
+    cursor:pointer;
+    transition-duration: 200ms;
+    box-shadow: 1px 0px 9px 0px rgba(255, 255, 255, 0.75);
+-webkit-box-shadow: 1px 0px 15px 0px rgba(255, 255, 255, 0.75);
+-moz-box-shadow: 1px 0px 9px 0px rgba(255, 255, 255, 0.75);
+}
+.icon-pressed{
+    display: flex;
+    margin-bottom: 5px;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: rgb(255, 255, 255);
+    border: solid 1px rgb(255, 255, 255) ;
+   cursor:pointer;
+   box-shadow: 1px 0px 9px 0px rgba(255, 255, 255, 0.75);
+-webkit-box-shadow: 1px 0px 5px 0px rgba(255, 255, 255, 0.75);
+-moz-box-shadow: 1px 0px 9px 0px rgba(255, 255, 255, 0.75);
+    border-radius: 5px;
+}

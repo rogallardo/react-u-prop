@@ -1,0 +1,307 @@
+.big-containersSettings{
+    display: flex;
+    max-width: 100%;
+    height: fit-content;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: rgb(233, 233, 233);
+    padding-bottom: 50px;
+    margin: 0;
+    
+}
+.settings-container{
+    display:flex;
+    justify-content: left;
+    width:90%;
+    height: 100%;
+    flex-direction: column;
+    margin-bottom: 30px;
+    margin-top:20px;
+}
+.title-settings{
+    display: flex;
+    width: auto;
+    font-size: 30px;
+    margin-top: 10px;
+    height: 40px;
+    align-items: center;
+    margin-top: 50px;
+    
+}
+.addDaysConf-container{
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    height: fit-content;
+    justify-content: center;
+    
+    
+}
+.addDaysConf-title{
+    display: flex;
+    width: fit-content;
+}
+.addDaysConf-subcontainer{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+   
+    height: auto;
+}
+.addDaysConf-item{
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    align-items: center;
+    height: 50px;
+    margin-top: 10px;
+}
+.input-container-addDays{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 200px;
+    height: 50px;
+}
+.input-style-addDays{
+    display: flex;
+    width: 70px;
+    height: 100%;
+}
+.text-container-addDays{
+    display: flex;
+    width: 400px;
+    justify-content: left;
+    align-items: center;
+}
+
+.msgwpConf-container{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: fit-content;
+    justify-content: center;
+   
+}
+.msgwpConf-title{
+    display: flex;
+    width: fit-content;     
+}
+.msgwpConf-subcontainer{
+    display: flex;
+    flex-direction: column;
+    width: 70%;  
+    height: auto;
+}
+
+.msgwpConf-item{
+    display: flex;
+    width: 90%;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+    margin-top: 10px;
+}
+.input-container-msg{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width:600px;
+    height: 50px;
+}
+.input-style-text-msg{
+    display: flex;
+    width: 800px;
+    height: 100%;
+}
+.input-style-text-msg-inicialOne{
+    display: flex;
+    width: 55%;
+    height: 100%;
+}
+.input-style-text-msg-inicialTwo{
+    display: flex;
+    width: 55%;
+    height: 100%;
+
+}
+.textOnMsg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    height: 50px;
+}
+
+.text-container-msg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.editIcon-container{
+    display: flex;
+    width: 100px;
+    justify-content: left;
+}
+.saveCancelIcons-container{
+    display: flex;
+    width: 100px;
+}
+.textOnMsg{
+    display: flex;
+    width: 150px;
+    justify-content: center;
+    align-items: center;
+}
+.cityAdderConf-container{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: fit-content;
+    justify-content: center;
+   
+}
+.cityAdderConf-title{
+    display: flex;
+    width: fit-content;  
+    
+}
+.cityAdderConf-subcontainer{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    height: auto;
+   
+}
+.cityAdderConf-item{
+    display: flex;
+    width: 90%;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+    margin-top: 10px;
+}
+.input-container-cityAdder{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 300px;
+    height: 50px;
+}
+.input-style-text-cityAdder{
+    display: flex;
+    width: 600px;
+    height: 100%;
+}
+@media only screen and (max-width: 700px) and (min-width: 200px) {
+
+    .addDaysConf-container{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: fit-content;
+        justify-content: center;
+       
+    }
+    .addDaysConf-title{
+        display: flex;
+        width: fit-content;
+    
+    }
+    .addDaysConf-subcontainer{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+    }
+    .addDaysConf-item{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        align-items: center;
+        height: 50px;
+        margin-top: 10px;
+    }
+    .input-container-addDays{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 200px;
+        height: 50px;
+    }
+    .input-style-addDays{
+        display: flex;
+        width: 70px;
+        height: 100%;
+    }
+    .text-container-addDays{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .msgwpConf-container{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: fit-content;
+        justify-content: center;
+        
+    }
+    .msgwpConf-title{
+        display: flex;
+        width: fit-content; 
+        height: 50px;
+       
+    }
+    .msgwpConf-subcontainer{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 350px;
+       
+    }
+    
+    .msgwpConf-item{
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        align-items: center;
+        justify-content: space-between;
+        height: fit-content;
+       
+        
+    }
+    .text-container-msg{
+        display: flex;     
+        height: 50px;
+        width: fit-content;
+    }
+    .input-container-msg{
+        display: flex;
+        
+        align-items: center;
+        
+        width: 300px;
+        height: fit-content;
+    }
+    .input-style-text-msg{
+        display: flex;
+        width: 100%;
+        height: 100%;
+    }
+    .input-style-text-msg-inicialTwo{
+        display: flex;
+        width: 100%;
+        height: 100%;
+    }
+    .input-style-text-msg-inicialOne{
+        display: flex;
+        width: 100%;
+        height: 100%;
+    }
+
+
+
+}

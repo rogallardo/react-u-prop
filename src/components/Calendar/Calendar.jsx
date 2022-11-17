@@ -14,41 +14,11 @@ import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import { useContext } from 'react';
 import { Auth } from '../AuthContext/AuthContext';
-
-/* const coincidenciasCiudad = () => {
-      if (newCity !== "") {
-          let copiaUsersListt = [...copyUsersList]
-          let pep = copiaUsersListt.filter((userInList) =>
-              userInList.name.toLowerCase().includes(newName.toLowerCase()))
-          let pepi = pep.filter((userInList) =>
-              userInList.city === newCity && ({ userInList }))
-          setUsersMatch(pepi)
-      } else {
-          coincidenciasNombre()
-      }
-  }*/
-
-/*const cityLabelConverse = () => {
-
-    if (newCity === "palermo") {
-        setNewCityLabel("Palermo")
-    } else if (newCity === "urquiza") {
-        setNewCityLabel("Villa Urquiza")
-    } else if (newCity === "devoto") {
-        setNewCityLabel("Villa Devoto")
-    }
-}*/
-
-/* const updateName = (name, nameEdited, id) => {
-      const db = getFirestore();
-      const usersDoc = doc(db, "users", id)
-      updateDoc(usersDoc, { name: nameEdited })
-      name = nameEdited
-  }*/
+import { Link } from 'react-router-dom'
+import swal from 'sweetalert'
 
 
-
-export default function Calendar({ usersList }) {
+export default function Calendar({ usersList, settings }) {
     const { userLog, adminUser, userInfo, cerrarSesion } = useContext(Auth)
     const [copyUsersList, setCopyUsersList] = useState(usersList)
     const [newValue, setNewValue] = useState('')
@@ -58,12 +28,14 @@ export default function Calendar({ usersList }) {
     const [hoverID, setHoverID] = useState()
     
     const [titleDate, setTitleDate] = useState("Hoy")
-
+  
+ 
 
 
 
     useEffect(() => {
         coincidenciasBusqueda()
+        
     }, [newValue])
     useEffect(() => {
         dateTitleSetter()
@@ -182,7 +154,7 @@ export default function Calendar({ usersList }) {
                 dia = "viernes"
             }else if(todayDay === 6){
                 dia = "sábado"
-            }else if(todayDay === 7){
+            }else if(todayDay === 0){
                 dia = "domingo"
             }
             if(todayMonth === 1){
@@ -236,7 +208,7 @@ export default function Calendar({ usersList }) {
                 dia = "viernes"
             }else if(tomorrowDay === 6){
                 dia = "sábado"
-            }else if(tomorrowDay === 7){
+            }else if(tomorrowDay === 0){
                 dia = "domingo"
             }
            
@@ -285,7 +257,23 @@ export default function Calendar({ usersList }) {
         setCopyUsersList(resp)
         setUsersMatch(resp2)
     }
+    const alertDelete = (id)=>{
+     
+        swal({
+            title:"Eliminar",
+            text:"¿Desea eliminar usuario?",
+            icon: "warning",
+            buttons: ["Cancelar", "Eliminar"]
 
+        }).then(response=>{
+            if(response){
+                deleteUser(id)
+                swal({text:"El usuario ha sido eliminado",
+                        icon:"success"
+            })
+            }
+        })
+    }
     const deleteUser = async (id) => {
         const db = getFirestore();
         if(adminUser===true){
@@ -293,10 +281,12 @@ export default function Calendar({ usersList }) {
         await deleteDoc(doc(db, "users", id));
         handleAnimationDelete(id)
         setTimeout(() => { removeItem(id) }, 700); 
+      
         }else if(adminUser===false){
             await deleteDoc(doc(db, "usersDemo", id));
         handleAnimationDelete(id)
         setTimeout(() => { removeItem(id) }, 700); 
+      
         }
       
 
@@ -393,7 +383,7 @@ export default function Calendar({ usersList }) {
                                 <div className={(user.id === hoverID) ? 'userCoincidenceContainer-AnimationDelete-calendar' : 'userCoincidenceContainer-calendar'} key={user.id}>
 
                                     <div className={(user.id === hoverID) ? 'userComponentContainer-AnimationDelete' : 'userComponentContainer'} >
-                                        <User user={user} key={user.id} id={user.id} name={user.name} googleName={user.googleName} cityLabel={user.cityLabel} phone={user.phone} link={user.link} status={user.status} lastContactDate={user.lastContactDate} nextContactDate={user.nextContactDate} /> </div>
+                                        <User settings={settings} user={user} key={user.id} id={user.id} name={user.name} googleName={user.googleName} city={user.city} phone={user.phone} link={user.link} status={user.status} lastContactDate={user.lastContactDate} nextContactDate={user.nextContactDate} /> </div>
                                     <div className={(user.id === hoverID) ? 'btn-calendar-container-AnimationDelete' : 'btns-calendar-container'}>
 
                                         <div className='btn-editar-container-calendar'>
@@ -401,22 +391,24 @@ export default function Calendar({ usersList }) {
                                                 edge="end"
                                                 aria-label="delete"
                                                 title="Edit"
-                                                onClick={() => { handleAnimationDelete(user.id) }}
+                                                component={Link} to={`/user/${user.id}`}
                                             >
                                                 <CreateIcon />
                                             </IconButton>
                                         </div>
-                                        <div className='btn-eliminar-container-calendar'>
+                                        <div className='btn-eliminar-container'>
                                             <IconButton
                                                 edge="end"
                                                 aria-label="delete"
                                                 title="Delete"
-                                                onClick={() => { deleteUser(user.id) }}
+                                                
+                                                onClick={()=>{alertDelete(user.id)}}
                                             >
                                                 <DeleteIcon />
                                             </IconButton></div>
 
                                     </div>
+                                   
 
 
                                 </div>
