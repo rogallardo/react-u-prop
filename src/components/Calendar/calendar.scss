@@ -1,0 +1,239 @@
+.calendar-flex-container{
+    display: flex;
+    max-width: 100%;
+    height: fit-content;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: rgb(233, 233, 233);
+    padding-bottom: 50px;
+    margin: 0;
+    padding-top: 3rem;
+    padding-left: 5rem;
+    padding-right: 2rem;
+    font-size: 0.75rem;
+    font-family: 'Inter', sans-serif;
+
+    .menu-container-calendar{
+        display:flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        width:90%;
+        height: 100px;
+        
+        margin-bottom: 10px;
+        margin-top:50px;
+       
+      
+    }
+    
+    .titleDate-Date-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 82px;
+        width: 700px;
+       
+        border-left: solid 10px rgba(178, 201, 229, 0.802);
+        margin-bottom: 10px;
+    
+    }
+    .titleDate-container{
+        display: flex;
+        align-items: center;
+        width: 95%;
+        height: 50px;
+     
+    }
+    .titleDate{
+        display: flex;
+        font-size: 30px;
+        margin-left: 10px;
+    }
+    .date-container{
+        display: flex;
+        width: 95%;
+        height: 30px;
+        align-items: center;
+     
+    }
+    .subtitleDate{
+        display: flex;
+        font-size: 15px;
+        margin-left: 10px;  
+    }
+    
+    .btnsDate-calendar{
+        display: flex;
+        align-items: center;
+        height: 40px;
+        width: 110px;
+        border-left: solid 5px rgba(178, 201, 229, 0.566);
+        cursor: pointer;
+        margin-bottom: 10px;
+        
+       
+    }
+    .btnsDate-calendar:hover{
+        display: flex;
+        
+        height: 40px;
+       
+        border-left: solid 5px rgb(255, 255, 255);
+        cursor: pointer;
+        margin-bottom: 10px;
+        color: rgb(101, 101, 101);
+       
+    }
+    .titleBtn-calendar{
+        display: flex;
+        font-size: 17px;
+        margin-left: 10px;  
+    }
+    
+    
+    .inputSearch-container-calendar{
+        display:flex;
+        width: 90%;
+        
+        min-height: 100%;
+        justify-content: center;
+        align-items: center;
+      
+        background-color: rgb(217, 222, 227);
+    
+    font-size: 15px;
+    font-weight: 700;
+    
+    }
+    .inputSearch-subcontainer-calendar{
+        display:flex;
+        width: 90%;
+        height: 50px;  
+         justify-content: center;
+        align-items: center;
+     
+       
+    }
+    
+    
+    .inputSearch-style-calendar{
+        display: flex;
+        width: 60%;
+       
+        height:40px;
+    
+    }
+    
+    .btns-calendar-container{
+        display: flex;
+        width: 10%;
+        height: 65px;
+        justify-content: center;
+       
+        align-items: center;
+    }
+    .btns-calendar-container-AnimationDelete{
+        display: flex;
+        width: 10%;
+        height: 0px;
+        justify-content: center;
+        opacity: 00%;
+        align-items: center;
+     
+        animation-name: animationDeletedd;
+        animation-fill-mode: forwards;
+        animation-duration: 0.3s;
+        
+    }
+    
+    /*******************************************************************MOBILE RESPONSIVE -700PX**************************************************************************************/
+    @media only screen and (max-width: 700px) and (min-width: 200px) {
+        
+        .inputSearch-container-calendar{
+        display:flex;
+        width: 90%;
+        min-height: 100%;
+        justify-content: center;
+        align-items: center;
+        margin-top: 5px;
+      
+        background-color: rgb(217, 222, 227);
+        box-shadow: 7px 8px 14px -6px rgba(117,117,117,0.75);
+    -webkit-box-shadow: 7px 8px 14px -6px rgba(117,117,117,0.75);
+    -moz-box-shadow: 7px 8px 14px -6px rgba(117,117,117,0.75);
+    font-size: 15px;
+    font-weight: 700;
+    
+    }
+    .inputSearch-subcontainer-calendar{
+        display:flex;
+        flex-direction: column;
+        width: 90%;
+        height: 50px;  
+         justify-content: center;
+        align-items: center;
+     
+       
+    }
+    
+    
+    
+        .inputSearch-style-calendar{
+            display: flex;
+            width: 90%;
+           
+            height:40px;
+        
+        }
+        
+        .userComponentContainer-calendar{
+            display: flex;
+            width: 100%;
+            height: 110px;
+            justify-content: center;
+            align-items: center;
+            opacity: 100%;
+    
+            
+        }
+        .list-itemsContainer-calendar{
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 60px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            background-color:rgb(217, 222, 227);
+            
+            
+        }
+        .btns-calendar-container{
+            display: none;
+            flex-direction: column;
+            width: 10%;
+            height: 150px;
+            justify-content: space-evenly;
+           
+            align-items: center;
+        }
+        .titleDate{
+            display: flex;
+            font-size: 20px;
+            margin-left: 10px;
+        }
+        .titleBtn-calendar{
+            display: flex;
+            font-size: 12px;
+            margin-left: 10px;  
+        }
+        .subtitleDate{
+            display: flex;
+            font-size: 12px;
+            margin-left: 10px;  
+        }
+    }
+}
+

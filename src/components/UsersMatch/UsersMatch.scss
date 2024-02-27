@@ -1,0 +1,132 @@
+.usersMatch-container{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    // margin-top: 8rem;
+    padding:0rem 1rem;
+    // height: calc(2.85rem * 13);// la altura se regula en el componente UsersMatch
+    justify-content: flex-start;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 7px 8px 14px -6px rgba(117,117,117,0.75);
+    -webkit-box-shadow: 7px 8px 14px -6px rgba(117,117,117,0.75);
+    -moz-box-shadow: 7px 8px 14px -6px rgba(117,117,117,0.75);
+    border-radius: 5px;
+    .list-itemsContainer{
+        display: flex;
+        width: 100%;
+        height: 2.8rem;
+        justify-content: space-between;
+        align-items: center;
+        background-color: rgb(255, 255, 255);
+    }
+    
+    
+    .list-item{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width:10% ;
+        height: fit-content;
+        justify-content: center; 
+        text-align: center;
+        overflow: hidden;
+        font-weight: 600;
+        font-size: 0.8rem;
+        color: rgb(156, 156, 156);
+       
+    }
+    .noResultsTitle-container{
+        display: flex;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem 0;
+    }
+    .noResultsTitle-container h4{
+        display: flex;
+        font-weight: 600;
+        font-size: medium;
+        color: dimgray;
+    
+    }
+    .userComponent-container{
+        display: flex;
+        width: 100%;
+        height: 2.8rem;
+        justify-content: center;
+        align-items: center;
+        
+    }
+}
+@media only screen and (max-width: 700px) and (min-width: 200px) {
+    .usersMatch-container-mobile{
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        width: 100%;
+        // margin-top: 8rem;
+        padding:0rem 1rem;
+        // height: calc(2.85rem * 13);// la altura se regula en el componente UsersMatch
+        justify-content: flex-start;
+        align-items: center;
+        background-color: rgb(255, 255, 255);
+        box-shadow: 7px 8px 14px -6px rgba(117,117,117,0.75);
+        -webkit-box-shadow: 7px 8px 14px -6px rgba(117,117,117,0.75);
+        -moz-box-shadow: 7px 8px 14px -6px rgba(117,117,117,0.75);
+        border-radius: 5px;
+        .list-itemsContainer{
+            display: flex;
+            width: 100%;
+            height: 2.8rem;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgb(255, 255, 255);
+        }
+        
+        
+        .list-item{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width:60px ;
+            height: fit-content;
+            justify-content: center; 
+            text-align: center;
+            overflow: hidden;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: rgb(156, 156, 156);
+           
+        }
+        .name{
+            display: flex;
+            width: 90px;
+        }
+        .noResultsTitle-container{
+            display: flex;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        .noResultsTitle-container h4{
+            display: flex;
+            font-weight: 600;
+            font-size: medium;
+            color: dimgray;
+        
+        }
+        .userComponent-container{
+            display: flex;
+            width: 100%;
+            height: 3rem;
+            justify-content: center;
+            align-items: center;
+            
+        }
+    }
+}

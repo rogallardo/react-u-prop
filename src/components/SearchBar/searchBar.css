@@ -1,0 +1,88 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    list-style: none;
+}
+.inputSearch-container{
+    display:flex;  
+    flex-direction: column;
+    background-color: rgb(255, 255, 255);
+    height: fit-content;
+    width: 100%;  
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    box-shadow: 7px 8px 14px -6px rgba(117,117,117,0.75);
+    -webkit-box-shadow: 7px 8px 14px -6px rgba(117,117,117,0.75);
+    -moz-box-shadow: 7px 8px 14px -6px rgba(117,117,117,0.75);
+}
+.input-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 3rem;
+    background-color: #ffffff;
+    border-radius: 5px;
+   
+
+}
+.input-container input{
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    width: 90%;
+    height: 90%;
+    font-size: medium;
+    
+}
+.input-container input:focus{
+    outline: none;
+}
+.datalist-container{
+    display: flex;
+    position: relative;
+    width: 100%;
+    margin-top: 0px;
+
+ 
+}
+.datalist-container ul{
+    display: flex;
+    padding: 0px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: fit-content;
+    margin-top:0px;
+    width: 100%;
+    margin-bottom: 3px;
+
+}
+.datalist-container ul div {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.datalist-container ul div li{
+    display: flex;
+    position:relative;
+    align-items: center;
+    height: 3rem;
+    margin-top:0px;
+    width: 90%;
+    cursor: pointer;
+    text-align: left;
+    list-style: none;
+    list-style-type: none;
+    font-weight: 400;
+    font-size: medium;
+}
+.datalist-container ul div:hover{
+    background-color: aliceblue;
+    border-radius: 5px;
+}

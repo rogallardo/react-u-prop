@@ -22,7 +22,7 @@ export default function Login() {
     const [userPass, setUserPass] = useState('')
   
     const auth = getAuth()
-  
+   
     
     const submitReg = (e)=>{
         regUser(e, auth, userEmail, userPass)

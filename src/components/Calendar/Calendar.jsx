@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { collection, getFirestore, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore'
-import './calendar.css'
+import './calendar.scss'
 import User from '../User/User'
 import Typography from '@mui/material/Typography';
 import '@fontsource/roboto/300.css';
@@ -16,6 +16,7 @@ import { useContext } from 'react';
 import { Auth } from '../AuthContext/AuthContext';
 import { Link } from 'react-router-dom'
 import swal from 'sweetalert'
+import UsersMatch from '../UsersMatch/UsersMatch'
 
 
 export default function Calendar({ usersList, settings }) {
@@ -110,7 +111,7 @@ export default function Calendar({ usersList, settings }) {
         let today = new Date()
         let todayFormat = format(today, "MM/dd/yyyy")
         let todayForr = new Date(todayFormat)
-        let filterUntilToday = copyUsersListt.filter(user => new Date(user.nextContactDate) <= todayForr || user.status == "Sin contactar")
+        let filterUntilToday = copyUsersListt.filter(user =>  user.status !== "Re-contactado"  && new Date(user.nextContactDate) <= todayForr || user.status == "Sin contactar")
         setTomorrowFilter(false)
         setTodayFilter(true)
         setUsersMatch(filterUntilToday)
@@ -246,56 +247,18 @@ export default function Calendar({ usersList, settings }) {
         setNewValue(e.target.value)
     }
 
-    const handleAnimationDelete = (id) => {
-        setHoverID(id);
+    const handleRefreshDelete =(id)=>{
+        let updatedUsersClonedDelete = copyUsersList.filter(user => user.id !== id)
+        setCopyUsersList(updatedUsersClonedDelete)
+       let updatedUsersMatchDelete  = usersMatch.filter(user => user.id !== id)
+       setUsersMatch(updatedUsersMatchDelete)
     }
 
-    const removeItem = (id) => {
-
-        let resp = copyUsersList.filter((el) => el.id !== id)
-        let resp2 = usersMatch.filter((el) => el.id !== id)
-        setCopyUsersList(resp)
-        setUsersMatch(resp2)
-    }
-    const alertDelete = (id)=>{
-     
-        swal({
-            title:"Eliminar",
-            text:"¿Desea eliminar usuario?",
-            icon: "warning",
-            buttons: ["Cancelar", "Eliminar"]
-
-        }).then(response=>{
-            if(response){
-                deleteUser(id)
-                swal({text:"El usuario ha sido eliminado",
-                        icon:"success"
-            })
-            }
-        })
-    }
-    const deleteUser = async (id) => {
-        const db = getFirestore();
-        if(adminUser===true){
-             
-        await deleteDoc(doc(db, "users", id));
-        handleAnimationDelete(id)
-        setTimeout(() => { removeItem(id) }, 700); 
-      
-        }else if(adminUser===false){
-            await deleteDoc(doc(db, "usersDemo", id));
-        handleAnimationDelete(id)
-        setTimeout(() => { removeItem(id) }, 700); 
-      
-        }
-      
-
-    }
 
     return (
         <>
      
-            <div className='big-container-calendar'>
+            <div className='calendar-flex-container'>
 
 
                 <div className='menu-container-calendar'>
@@ -331,93 +294,7 @@ export default function Calendar({ usersList, settings }) {
 
                 </div>
 
-
-                <div className='inputSearch-container-calendar'>
-                    <div className='inputSearch-subcontainer-calendar'>
-                        <div className='inputSearch-style-calendar'>
-
-                            <Paper
-                                component="form"
-                                sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '100%' }}
-                            >
-                                <InputBase
-                                    sx={{ ml: 1, flex: 1 }}
-                                    placeholder="Buscar..."
-                                    inputProps={{ 'aria-label': 'search google maps' }}
-                                    value={newValue}
-                                    onChange={handleNewValue}
-                                />
-                                <IconButton disabled type="button" sx={{ p: '10px' }} aria-label="search">
-                                    <SearchIcon />
-                                </IconButton>
-
-                            </Paper>
-                        </div>
-
-                    </div>
-                </div>
-
-
-
-                <div className='list-itemsContainer-calendar'>
-
-                    <div className='list-itemsTitlesContainer-calendar'>
-                        <div className='list-item-calendar'>Nombre</div>
-                        <div className='list-item-calendar'>Ciudad</div>
-                        <div className='list-item-calendar'>Contacto Google</div>
-                        <div className='list-item-calendar'>Teléfono</div>
-                        <div className='list-item-calendar'>Link</div>
-                        <div className='list-item-calendar'>Estado</div>
-                        <div className='list-item-calendar'>Whatsapp</div>
-                    </div>
-
-                    <div className='list-itemActionContainer-calendar'>
-                        <div className='list-itemAction'>Acciones</div>
-                    </div>
-                </div>
-                <div className='usersMatch-container-calendar'>
-
-                    {
-                        usersMatch.length > 0 ?
-                            usersMatch.map((user) => (
-                                <div className={(user.id === hoverID) ? 'userCoincidenceContainer-AnimationDelete-calendar' : 'userCoincidenceContainer-calendar'} key={user.id}>
-
-                                    <div className={(user.id === hoverID) ? 'userComponentContainer-AnimationDelete' : 'userComponentContainer'} >
-                                        <User settings={settings} user={user} key={user.id} id={user.id} name={user.name} googleName={user.googleName} city={user.city} phone={user.phone} link={user.link} status={user.status} lastContactDate={user.lastContactDate} nextContactDate={user.nextContactDate} /> </div>
-                                    <div className={(user.id === hoverID) ? 'btn-calendar-container-AnimationDelete' : 'btns-calendar-container'}>
-
-                                        <div className='btn-editar-container-calendar'>
-                                            <IconButton
-                                                edge="end"
-                                                aria-label="delete"
-                                                title="Edit"
-                                                component={Link} to={`/user/${user.id}`}
-                                            >
-                                                <CreateIcon />
-                                            </IconButton>
-                                        </div>
-                                        <div className='btn-eliminar-container'>
-                                            <IconButton
-                                                edge="end"
-                                                aria-label="delete"
-                                                title="Delete"
-                                                
-                                                onClick={()=>{alertDelete(user.id)}}
-                                            >
-                                                <DeleteIcon />
-                                            </IconButton></div>
-
-                                    </div>
-                                   
-
-
-                                </div>
-                            ))
-
-                            :
-                            <div >No hay resultados</div>
-                    }
-                </div>
+                <UsersMatch usersMatch={usersMatch} settings={settings} handleRefreshDelete={handleRefreshDelete} usersPerPage={10}/>
 
             </div>
 

@@ -1,0 +1,269 @@
+.userCreator-flex-container{
+    display: flex;
+    max-width: 100%;
+    height: fit-content;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: rgb(233, 233, 233);
+    padding-bottom: 50px;
+    margin: 0;
+    padding-top: 3rem;
+    padding-left: 5rem;
+    padding-right: 2rem;
+    font-size: 0.75rem;
+
+
+    .userComponent-container{
+        display: flex;
+        width: 100%;
+        /* height: 2.8rem; */
+        justify-content: center;
+        align-items: center;
+        
+    }
+    .principalTitle-container{
+        display:flex;
+        justify-content: left;
+        align-items: center;
+        width:100%;
+        height: 60px;
+        margin-top: 35px;
+        padding-left: 20px;
+        background-color: rgb(246, 246, 246);
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+    .principalTitle{
+        display:flex;
+        justify-content: left;
+        width:100%;
+        height: 40px;
+        color: rgb(78, 78, 78);
+        align-items: center;
+        font-size: 1.6rem;
+      
+    } 
+    .principalSubTitle{
+        display:flex;
+        justify-content: left;
+        width:100%;
+        height: 40px;
+        color: rgb(78, 78, 78);
+        align-items: center;
+        font-size: 1.6rem;
+      
+    } 
+    .inputs-container-userEdit{
+        display:flex;
+        width: 100%;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        /* min-height: 100%; */
+        justify-content: center;
+        align-items: center;
+      
+        background-color: rgb(250, 250, 250);
+        box-shadow: 7px 8px 14px -6px rgba(117,117,117,0.75);
+    -webkit-box-shadow: 7px 8px 14px -6px rgba(117,117,117,0.75);
+    -moz-box-shadow: 7px 8px 14px -6px rgba(117,117,117,0.75);
+    font-size: 15px;
+    font-weight: 700;
+
+    
+    }
+    .inputs-subcontainer-userEdit{
+        display:flex;
+        width: 100%;
+        height: 100px;  
+        padding: 10px;
+        align-items: center;
+        justify-content: space-between; 
+    }
+    
+    
+    
+    .input-style-creator{
+        display:flex;
+        justify-content: center; 
+        align-items: center;
+        width: 150px;
+    }
+    
+}
+
+
+
+
+
+
+/*****************************************************************MOBILE RESPONSIVE -700PX***************************************************************************************/
+@media only screen and (max-width: 700px) and (min-width: 200px) {
+    .userCreator-flex-container{
+        display: flex;
+    max-width: 100%;
+    min-height: 100vh;
+    height: fit-content;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: rgb(233, 233, 233);
+    padding-bottom: 50px;
+    margin: 0;
+    padding-top: 3rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 0.75rem;
+    width: 100%;
+
+    .principalTitle{
+        display:flex;
+        justify-content: left;
+        width:100%;
+        height: 40px;
+        color: rgb(78, 78, 78);
+        align-items: center;
+        font-size: 1.3rem;
+      
+    }
+    .principalSubTitle{
+        display:flex;
+        justify-content: left;
+        width:100%;
+        height: 40px;
+        color: rgb(78, 78, 78);
+        align-items: center;
+        font-size: 1rem;
+      
+    } 
+
+    .inputSearch-container-userEdit{
+    display:flex;
+    width: 100%;
+    min-height: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+  
+    background-color: rgb(217, 222, 227);
+    box-shadow: 7px 8px 14px -6px rgba(117,117,117,0.75);
+-webkit-box-shadow: 7px 8px 14px -6px rgba(117,117,117,0.75);
+-moz-box-shadow: 7px 8px 14px -6px rgba(117,117,117,0.75);
+font-size: 15px;
+font-weight: 700;
+
+}
+.inputSearch-subcontainer-userEdit{
+    display:flex;
+    flex-direction: column;
+    width: 90%;
+    height: 100px;  
+     justify-content: center;
+    align-items: center;
+ 
+   
+}
+
+
+
+    .inputSearch-style{
+        display: flex;
+        width: 300px;
+       
+        height:40px;
+    
+    }
+    .filtros-container{
+        width: fit-content;
+        height: fit-content;
+        margin-left: 0px;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        margin-top: 10px;
+    }
+    .content-selected{
+        width: 100%;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        margin-left: 10px;
+    }
+    .content-selected select{
+        display: inline-block;
+        width: 110px;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+          
+          height: 40px;
+          outline: 0; 
+          border: 0;
+        font-family: 
+        'Quicksand', sans-serif;
+        font-size: 11px;
+        border-radius: 4px;
+        position: relative;
+        transition: all 0.25s ease;
+        text-align: center;
+    
+    }
+    
+    .userComponentContainer{
+        display: flex;
+        width: 100%;
+        height: 110px;
+        justify-content: center;
+        align-items: center;
+        opacity: 100%;
+    
+
+        
+    }
+    .list-itemsContainer{
+        display: none;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 60px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        background-color:rgb(217, 222, 227);
+        
+        
+    }
+    .btns-userEdit-container{
+        display: none;
+        flex-direction: column;
+        width: 10%;
+        height: 150px;
+        justify-content: space-evenly;
+       
+        align-items: center;
+    }
+    .inputs-subcontainer-userEdit{
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: 400px;  
+        align-items: center;
+        justify-content: space-between; 
+        padding: 20px;
+        z-index: 100;
+        overflow: hidden;
+    }
+    
+.input-style-creator{
+    display:flex;
+    justify-content: center; 
+    align-items: center;
+    width: 200px;
+    height: 30px;
+    z-index: 10000;
+  
+}
+
+    }
+}

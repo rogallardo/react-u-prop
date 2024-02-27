@@ -1,19 +1,26 @@
-.content-input input,
-.content-select select{
-	appearance: none;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-    font-size: 10px;
-
-}
 .content-select select{
 	appearance: none;
 	-webkit-appearance: none;
 	-moz-appearance: none;
 }
 
-.content-select select::-ms-expand {
-    display: none;
+.content-select select option {
+    display: flex;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background-color: rgb(255, 255, 255);
+	color: grey;
+	font-size: 0.8rem;
+	padding: 20px 5px;
+	width: 4rem;
+	height: 2rem;
+	
+}
+
+.content-select select option:hover {
+	background-color: rgb(128, 128, 193);
+
 }
 
 .content-select{
@@ -25,27 +32,27 @@
 }
  
 .content-select select{
-	display: inline-block;
-	width: 100%;
-    justify-content: center;
-    align-items: center;
-	cursor: pointer;
-  	
-  	height: 30.75px;
+	display: flex;
+	width:100%;
+    
+	text-align: center;
+  	height: 1.5rem;
   	outline: 0; 
   	border: 0;
 	font-family: 
 	'Quicksand', sans-serif;
-	font-size: 10px;
-    border-radius: 4px;
+	font-size: 0.7rem;
+	font-weight: 700;
+    border-radius:50px;
     position: relative;
     transition: all 0.25s ease;
+	background-color: #f0f0ff00;
 }
  
 .content-select select:hover{
 	background: #f0f0ff;
 }
-@media only screen and (max-width: 600px) and (min-width: 200px) {
+/* @media only screen and (max-width: 600px) and (min-width: 200px) {
 	.content-select select{
 		display: inline-block;
 		width: 100%;
@@ -63,4 +70,4 @@
 		position: relative;
 		transition: all 0.25s ease;
 	}
-}
+} */

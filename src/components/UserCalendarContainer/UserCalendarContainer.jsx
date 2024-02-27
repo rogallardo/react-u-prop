@@ -1,16 +1,17 @@
 import React, { useEffect, useState, useContext } from 'react'
-import UserList from '../UserList/UserList'
-import './UserListContainer.css'
+import './UserCalendarContainer.css'
 import { collection, getDocs, getFirestore } from 'firebase/firestore'
 import CircularProgress from '@mui/material/CircularProgress';
 import { Auth } from '../AuthContext/AuthContext';
+import UserCalendar from '../UserCalendar/UserCalendar';
+import { format, addDays } from 'date-fns/esm';
 
-export default function UserListContainer() {
+export default function UserCalendarContainer() {
   const { adminUser, userCollection, settingsCollection} = useContext(Auth)
-  const [usersList, setUsersList] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [settings, setSettings] = useState([])
+  const [usersPendings, setUsersPendings] = useState([])
 
   useEffect(() => {
     if(adminUser != null){
@@ -20,10 +21,8 @@ export default function UserListContainer() {
   
   async function fetchData(){
     try {  
-      await Promise.all([
-        getSettings(),
-        getUsers()
-      ])
+        await getSettings()
+        await getUsers() 
     } catch (error) {
         setError(true)
     } finally {
@@ -42,8 +41,7 @@ export default function UserListContainer() {
           addedOnDate: user.lastContactDate
         }
       })
-      console.log(usersMapped)
-      setUsersList(usersMapped); 
+      todayPendings(usersMapped)
     } catch (error) {
       console.log("error")
     }   
@@ -60,7 +58,15 @@ export default function UserListContainer() {
     }
   }
 
-
+  const todayPendings = (usersList) => {
+    let today = new Date()
+    let todayFormat = format(today, "MM/dd/yyyy")
+    let todayForr = new Date(todayFormat)
+    let filterUntilToday = usersList.filter(user =>  user.status !== "Re-contactado" && user.status !== "Sin contactar" && new Date(user.nextContactDate) <= todayForr)
+    let filterSinContactar = usersList.filter(user => user.status === "Sin contactar")
+    let filteredUsers = [...filterSinContactar, ...filterUntilToday]
+    setUsersPendings(filteredUsers)
+}
 
   return (
     <>
@@ -70,7 +76,7 @@ export default function UserListContainer() {
             <CircularProgress />
           </div>
           :
-          <UserList usersList={usersList} settings={settings} />
+          <UserCalendar usersList={usersPendings} settings={settings} />
       }
     </>
   )

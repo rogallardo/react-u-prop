@@ -1,0 +1,18 @@
+.btn-csvwriter{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    min-width: 5rem;
+    height: 3rem;
+    font-size: 16px;
+    font-weight: 500;
+    background-color:#6F5CC4;
+    border-radius: 5px;
+    cursor:pointer;
+    box-shadow: 7px 8px 14px -6px rgba(117,117,117,0.75);
+    -webkit-box-shadow: 7px 8px 14px -6px rgba(117,117,117,0.75);
+    -moz-box-shadow: 7px 8px 14px -6px rgba(117,117,117,0.75);
+    z-index: 90;
+    margin-left: 1rem;
+}

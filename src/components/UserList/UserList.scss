@@ -1,0 +1,156 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    list-style: none;
+}
+.flex-container-userList{
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    max-height: 100vh;
+    height: fit-content;
+    width: 100%;
+    padding-top: 3rem;
+    padding-left: 4rem;
+    padding-right: 2rem;
+    background-color: #F7F7F7;
+
+    .searchBox-container{
+        display: flex;
+        width: 100%;
+        position: relative;
+        height: fit-content;
+        margin-top: 1rem;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+}
+
+.searchBar-container{
+    display: flex;
+    align-items: center;
+    height: fit-content;
+    position: absolute;
+    align-items: center;
+    width: 49%;
+    z-index: 2;
+}
+
+.filters-container{
+    display: flex;
+    height: fit-content;
+    align-items: center;
+    position: absolute;   
+    z-index: 1; 
+    width: 49%;
+    margin-left: 50%;
+}
+
+/* .button-excel-container{
+    display: flex;
+    width: 90%;
+    margin-top: 50px;
+    height: 30px;
+    justify-content: right;
+} */
+
+.viewAll-btn-container{
+    display: flex;
+    width: 100%;
+    justify-content: end;
+    
+}
+
+
+/************************************List********************************************/
+.usersMatchList-container{
+    display: flex;
+    margin-top: 2rem;
+}
+
+.pagination-container-usersList{
+    display: flex;
+    width: 100%;
+    height: 100px;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+}
+/*******************************************************************MOBILE RESPONSIVE -700PX**************************************************************************************/
+
+@media only screen and (max-width: 700px) and (min-width: 200px) {
+    .flex-container-userList{
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        height: 100vh;
+        width: 100%;
+        padding-top: 3rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        background-color: #F7F7F7;
+        justify-content: center;
+
+        .pagination-container-usersList-mobile{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100px;
+            justify-content: space-around;
+            align-items: center;
+        
+        }
+
+        
+    .searchBox-container{
+        display: flex;
+        width: 100%;
+        position: relative;
+        height: fit-content;
+        margin-top: 1rem;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+}
+
+.searchBar-container{
+    display: flex;
+    align-items: center;
+    height: fit-content;
+    position: absolute;
+    align-items: center;
+    width: 50%;
+    z-index: 2;
+}
+
+.filters-container{
+    display: flex;
+    height: fit-content;
+    align-items: center;
+    position: relative;   
+    z-index: 1; 
+    width: 49%;
+    margin-left: 50%;
+    justify-content: end;
+}
+
+/* .button-excel-container{
+    display: flex;
+    width: 90%;
+    margin-top: 50px;
+    height: 30px;
+    justify-content: right;
+} */
+
+.viewAll-btn-container{
+    display: none;
+    width: 100%;
+    justify-content: end;
+    
+}
+    }    
+}
+

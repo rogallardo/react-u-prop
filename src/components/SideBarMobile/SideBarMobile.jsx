@@ -6,41 +6,24 @@ import IconButton from '@mui/material/IconButton';
 import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import { useState } from 'react';
-import { useEffect } from 'react';
 import { Link, useLocation } from "react-router-dom";
 import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined';
 
  
 export default function SideBarMobile() {
-    const [width, setWidth] = React.useState(window.innerWidth);
-    const breakpoint = 700;
-    useEffect(() => {
-        const handleResizeWindow = () => setWidth(window.innerWidth);
-
-        window.addEventListener("resize", handleResizeWindow);
-        return () => {
-
-            window.removeEventListener("resize", handleResizeWindow);
-        };
-    }, [])
-
     const { pathname } = useLocation();
-    if (width < breakpoint) {
-
         return (
             <div className='sideBarMobile-container'>
                 <Link to={"/"}>
                     <div className='icon-container-Mobile'>
                         <div className={pathname === "/" ? 'icon-pressed-Mobile' : 'icon-subcontainer-Mobile'} >
-
                             <IconButton
                                 disabled
                                 aria-label="inicio"
                                 title="Inicio"
 
                             >
-                                <HomeOutlinedIcon />
+                                <HomeOutlinedIcon style={pathname === '/' ? {color: '#cac6d7'} : {color: '#43396f'}}/>
                             </IconButton>
                         </div>
                     </div>
@@ -54,7 +37,7 @@ export default function SideBarMobile() {
                                 aria-label="agregar"
                                 title="Agregar usuario"
                             >
-                                <PersonAddAltOutlinedIcon />
+                                <PersonAddAltOutlinedIcon style={pathname === '/userCreator' ? {color: '#cac6d7'} : {color: '#43396f'}}/>
                             </IconButton>
                         </div>
                     </div>
@@ -68,8 +51,9 @@ export default function SideBarMobile() {
                                 aria-label="calendario"
                                 title="Calendario"
                             >
-                                <CalendarMonthOutlinedIcon />
+                                <CalendarMonthOutlinedIcon style={pathname === '/calendar' ? {color: '#cac6d7'} : {color: '#43396f'}}/>
                             </IconButton>
+                            
                         </div>
                     </div>
 
@@ -82,7 +66,7 @@ export default function SideBarMobile() {
                                                 aria-label="estadisticas"
                                                 title="Estadísticas"
                                             >
-                                                <AssessmentOutlinedIcon />
+                                                <AssessmentOutlinedIcon style={pathname === '/statistics' ? {color: '#cac6d7'} : {color: '#43396f'}}/>
                                             </IconButton>
                                         </div>
                                     </div>
@@ -96,7 +80,7 @@ export default function SideBarMobile() {
                                 aria-label="configuracion"
                                 title="Configuración"
                             >
-                                <SettingsOutlinedIcon />
+                                <SettingsOutlinedIcon style={pathname === '/settings' ? {color: '#cac6d7'} : {color: '#43396f'}}/>
                             </IconButton>
                         </div>
                     </div>
@@ -105,6 +89,5 @@ export default function SideBarMobile() {
 
             </div>
         )
-    }
 
 }

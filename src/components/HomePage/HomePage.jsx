@@ -14,10 +14,7 @@ export default function HomePage() {
     const [loading, setLoading] = useState(true)
     const initializeHomePage = () => {
         if (userLog === true) {
-            setTimeout(() => {
                 setLoading(false)
-            }, 1500)
-
         }
 
     }
